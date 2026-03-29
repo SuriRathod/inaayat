@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
 
+const base = import.meta.env.BASE_URL;
+
 const siteTitle = "All Poems";
 const allPoems = await getCollection('poems');
 const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -37,14 +39,14 @@ const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href={`${base}`} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    <a href="/" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
-                    <a href="/poems" class="transition-colors" style="color: var(--text-primary);">Poems</a>
-                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
-                    <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                    <a href={`${base}`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
+                    <a href={`${base}poems`} class="transition-colors" style="color: var(--text-primary);">Poems</a>
+                    <a href={`${base}stories`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href={`${base}about`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
                 </div>
             </div>
         </nav>
@@ -68,7 +70,7 @@ const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {sortedPoems.map((poem) => (
                     <article class="group">
-                        <a href={`/poems/${poem.slug}`} class="block">
+                        <a href={`${base}poems/${poem.slug}`} class="block">
                             
                             {poem.data.image && (
                                 <div class="aspect-[4/3] mb-6 overflow-hidden image-card">
