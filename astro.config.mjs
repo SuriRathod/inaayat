@@ -4,6 +4,6 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://SuriRathod.github.io',
-  base: '/poetry-website',
+  site: 'https://surirathod.github.io',
+  base: '/inaayat',
 });
