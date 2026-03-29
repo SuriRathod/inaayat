@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  const poems = await getCollection('poems');
+  return poems.map((poem) => ({
+    params: { slug: poem.slug },
+    props: { poem },
+  }));
+}
+
+const { poem } = Astro.props;
+const { Content } = await poem.render();
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{poem.data.title} — Inaayat</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        .poem-content :global(p) {
+            margin-bottom: 2.5rem;
+            line-height: 2;
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            color: #e5e5e5;
+        }
+        
+        .poem-content :global(p:last-child) {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen" style="background: var(--bg-primary); color: var(--text-primary);">
+    
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="background: rgba(15, 20, 25, 0.8); border-bottom: 1px solid var(--border-subtle);">
+        <nav class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="text-xl font-light tracking-widest text-white" style="font-family: var(--serif);">
+                    INAAYAT
+                </a>
+                <a href="/#poetry" class="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    All Poems
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Poem Content -->
+    <article class="pt-32 pb-24">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            
+            <!-- Featured Image -->
+            {poem.data.image && (
+                <div class="aspect-[16/9] mb-12 overflow-hidden bg-white/5 border border-white/10">
+                    <img 
+                        src={poem.data.image} 
+                        alt={poem.data.title}
+                        class="w-full h-full object-cover opacity-90"
+                    />
+                </div>
+            )}
+            
+            <!-- Header -->
+            <header class="mb-16 text-center max-w-2xl mx-auto">
+                <time class="text-xs uppercase tracking-widest text-gray-500 mb-6 block font-light">
+                    {poem.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <h1 class="text-4xl md:text-6xl font-light leading-tight text-white" style="font-family: var(--serif);">
+                    {poem.data.title}
+                </h1>
+            </header>
+            
+            <!-- Poem Text -->
+            <div class="poem-content max-w-2xl mx-auto" set:html={poem.body} />
+            
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+            <a href="/#poetry" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-6">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+                </svg>
+                Back to all poems
+            </a>
+            <p class="text-sm text-gray-500 font-light">
+                © 2025 Inaayat
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

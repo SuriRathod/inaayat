@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import '../styles/global.css';
+
+const siteTitle = "All Poems";
+const allPoems = await getCollection('poems');
+const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{siteTitle} — Inaayat</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .nav-header {
+            background: rgba(15, 20, 25, 0.8);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .image-card {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-subtle);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                    INAAYAT
+                </a>
+                <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
+                    <a href="/" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
+                    <a href="/poems" class="transition-colors" style="color: var(--text-primary);">Poems</a>
+                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-light mb-4" style="font-family: var(--serif); color: var(--text-primary);">
+                All Poems
+            </h1>
+            <p class="text-lg font-light" style="color: var(--text-secondary);">
+                {sortedPoems.length} poems — A complete collection of reflections and moments.
+            </p>
+        </div>
+    </section>
+
+    <!-- Full Poems Grid -->
+    <section class="pb-24 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                {sortedPoems.map((poem) => (
+                    <article class="group">
+                        <a href={`/poems/${poem.slug}`} class="block">
+                            
+                            {poem.data.image && (
+                                <div class="aspect-[4/3] mb-6 overflow-hidden image-card">
+                                    <img 
+                                        src={poem.data.image} 
+                                        alt={poem.data.title}
+                                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
+                                    />
+                                </div>
+                            )}
+                            
+                            <div class="space-y-4">
+                                <time class="text-xs uppercase tracking-widest font-light" style="color: var(--text-muted);">
+                                    {poem.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                </time>
+                                
+                                <h3 class="text-2xl font-light leading-tight group-hover:opacity-70 transition-opacity" style="font-family: var(--serif); color: var(--text-primary);">
+                                    {poem.data.title}
+                                </h3>
+                                
+                                <p class="text-sm leading-relaxed line-clamp-3 font-light" style="color: var(--text-secondary);">
+                                    {poem.data.excerpt.replace(/<p>|<\/p>|<br>/g, ' ').replace(/\s+/g, ' ').trim()}
+                                </p>
+                                
+                                <div class="flex items-center text-sm font-medium group-hover:gap-2 transition-all" style="color: var(--text-primary);">
+                                    Read poem
+                                    <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">
+                <p>Built with purpose · Updated regularly</p>
+                <p>© 2025 · Inaayat</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

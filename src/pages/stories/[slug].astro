@@ -1,0 +1,131 @@
+---
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories');
+  return stories.map((story) => ({
+    params: { slug: story.slug },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props;
+const { Content } = await story.render();
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{story.data.title} — Inaayat</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .nav-header {
+            background: rgba(15, 20, 25, 0.8);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .story-content :global(p) {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+        
+        .story-content :global(p:first-of-type::first-letter) {
+            font-size: 3.5rem;
+            line-height: 1;
+            float: left;
+            margin-right: 0.5rem;
+            margin-top: 0.25rem;
+            color: var(--accent-blue);
+        }
+        
+        .story-content :global(p:last-child) {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                    INAAYAT
+                </a>
+                <a href="/stories" class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    All Stories
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Story Content -->
+    <article class="pt-32 pb-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12">
+            
+            <!-- Featured Image -->
+            {story.data.image && (
+                <div class="aspect-[16/9] mb-12 overflow-hidden" style="background: var(--bg-accent); border: 1px solid var(--border-subtle);">
+                    <img 
+                        src={story.data.image} 
+                        alt={story.data.title}
+                        class="w-full h-full object-cover opacity-90"
+                    />
+                </div>
+            )}
+            
+            <!-- Header -->
+            <header class="mb-16 max-w-2xl mx-auto">
+                <div class="flex items-center gap-4 text-xs uppercase tracking-widest mb-6 font-light" style="color: var(--text-muted);">
+                    <time>
+                        {story.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </time>
+                    {story.data.readTime && (
+                        <>
+                            <span>·</span>
+                            <span>{story.data.readTime}</span>
+                        </>
+                    )}
+                </div>
+                <h1 class="text-3xl md:text-5xl font-light leading-tight" style="font-family: var(--serif); color: var(--text-primary);">
+                    {story.data.title}
+                </h1>
+            </header>
+            
+            <!-- Story Text -->
+            <div class="story-content max-w-2xl mx-auto" set:html={story.body} />
+            
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
+            <a href="/stories" class="inline-flex items-center gap-2 text-sm transition-colors mb-6" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+                </svg>
+                Back to all stories
+            </a>
+            <p class="text-sm font-light" style="color: var(--text-muted);">
+                © 2025 Inaayat
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

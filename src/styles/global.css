@@ -1,0 +1,45 @@
+/* Custom font imports - MUST be first */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cool dark theme variables (inspired by your portfolio) */
+:root {
+  --bg-primary: #0f1419;
+  --bg-secondary: #161b22;
+  --bg-accent: #1c2128;
+  --bg-elevated: #21262d;
+  
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  
+  --accent-blue: #539bf5;
+  --accent-gold: #d4af37;
+  
+  --border-subtle: #30363d;
+  --border-muted: #21262d;
+  
+  --serif: 'Cormorant Garamond', serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: var(--accent-blue);
+  color: white;
+}

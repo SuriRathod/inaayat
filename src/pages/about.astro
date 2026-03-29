@@ -1,0 +1,140 @@
+---
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Inaayat</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .nav-header {
+            background: rgba(15, 20, 25, 0.8);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                    INAAYAT
+                </a>
+                <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
+                    <a href="/" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
+                    <a href="/poems" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
+                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/about" class="transition-colors" style="color: var(--text-primary);">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- About Content -->
+    <article class="pt-32 pb-24 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-3xl mx-auto">
+            
+            <!-- Header -->
+            <div class="mb-16 text-center">
+                <h1 class="text-4xl md:text-6xl font-light mb-6 leading-tight" style="font-family: var(--serif); color: var(--text-primary);">
+                    About Inaayat
+                </h1>
+                <p class="text-lg font-light" style="color: var(--text-secondary);">
+                    An expression of reality — Words that often go unspoken
+                </p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="prose prose-lg max-w-none">
+                
+                <div class="mb-12 leading-relaxed text-lg" style="font-family: var(--serif); color: var(--text-primary); line-height: 2;">
+                    <p class="mb-6">
+                        We carry countless emotions through the chaos of daily life—moments of joy, 
+                        sorrow, wonder, and longing that often remain unspoken. In the battle of our 
+                        busy existence, these feelings linger silently within us, waiting for expression.
+                    </p>
+                    
+                    <p class="mb-6">
+                        <span style="font-style: italic; color: var(--accent-blue);">Inaayat</span> 
+                        is my effort to give voice to those untold stories and unfinished conversations. 
+                        Through poetry and reflection, I seek to illuminate the words we struggle to say, 
+                        the emotions we find difficult to name, and the experiences we all quietly share.
+                    </p>
+                    
+                    <p class="mb-6">
+                        This space is an attempt to express what is usually left unsaid—to capture the 
+                        subtle beauty of everyday moments and the profound depth of human feeling. Each 
+                        piece is a conversation with silence, an effort to transform emotion into language.
+                    </p>
+                    
+                    <p class="mb-8">
+                        I hope you find pieces of yourself here. I hope these words resonate, comfort, 
+                        or inspire. Your presence means the world, and your feedback helps me grow with 
+                        every word I write.
+                    </p>
+                    
+                    <p class="text-center text-xl" style="font-style: italic; color: var(--text-secondary);">
+                        Thank you | शुक्रिया
+                    </p>
+                </div>
+
+                <!-- Signature -->
+                <div class="text-center mt-12 pt-8" style="border-top: 1px solid var(--border-subtle);">
+                    <p class="text-2xl font-light mb-2" style="font-family: var(--serif); color: var(--text-primary);">
+                        — Suri
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Connect Section -->
+            <div class="mt-16 pt-12 text-center" style="border-top: 1px solid var(--border-subtle);">
+                <h3 class="text-2xl font-light mb-6" style="font-family: var(--serif); color: var(--text-primary);">
+                    Stay Connected
+                </h3>
+                <p class="mb-8 font-light" style="color: var(--text-secondary);">
+                    Follow the journey on Instagram or share your thoughts
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="https://www.instagram.com/_._.inaayat._._/" target="_blank" 
+                       class="inline-block px-6 py-3 text-sm font-medium transition-all" 
+                       style="border: 1px solid var(--border-subtle); color: var(--text-primary);"
+                       onmouseover="this.style.borderColor='var(--text-secondary)'; this.style.background='var(--bg-accent)'"
+                       onmouseout="this.style.borderColor='var(--border-subtle)'; this.style.background='transparent'">
+                        Instagram
+                    </a>
+                    <a href="https://x.com/suri_rathore_?s=21" target="_blank"
+                       class="inline-block px-6 py-3 text-sm font-medium transition-all" 
+                       style="border: 1px solid var(--border-subtle); color: var(--text-primary);"
+                       onmouseover="this.style.borderColor='var(--text-secondary)'; this.style.background='var(--bg-accent)'"
+                       onmouseout="this.style.borderColor='var(--border-subtle)'; this.style.background='transparent'">
+                        X (Twitter)
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">
+                <p>Built with purpose · Updated regularly</p>
+                <p>© 2025 · Inaayat</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background -->
+  <rect width="100" height="100" fill="#0f1419"/>
+  
+  <!-- Quill pen -->
+  <g transform="translate(50, 50) rotate(-45)">
+    <!-- Feather -->
+    <path d="M 0,-30 Q -8,-15 -6,0 L 0,30 L 6,0 Q 8,-15 0,-30" 
+          fill="#539bf5" opacity="0.9"/>
+    <!-- Center line -->
+    <line x1="0" y1="-25" x2="0" y2="30" stroke="#e6edf3" stroke-width="1"/>
+  </g>
+  
+  <!-- Border -->
+  <rect width="100" height="100" fill="none" stroke="#539bf5" stroke-width="1.5" opacity="0.2"/>
+</svg>
