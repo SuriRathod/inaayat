@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import '../../styles/global.css';
 
+const base = import.meta.env.BASE_URL;
+
 export async function getStaticPaths() {
   const stories = await getCollection('stories');
   return stories.map((story) => ({
@@ -12,7 +14,6 @@ export async function getStaticPaths() {
 
 const { story } = Astro.props;
 const { Content } = await story.render();
-const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -21,7 +22,7 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{story.data.title} — Inaayat</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
     <style>
         body {
             background: var(--bg-primary);
@@ -61,7 +62,7 @@ const base = import.meta.env.BASE_URL;
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={`${base}`} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href={base} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
                 <a href={`${base}stories`} class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
@@ -82,7 +83,7 @@ const base = import.meta.env.BASE_URL;
             {story.data.image && (
                 <div class="aspect-[16/9] mb-12 overflow-hidden" style="background: var(--bg-accent); border: 1px solid var(--border-subtle);">
                     <img 
-                        src={story.data.image} 
+                        src={story.data.image.startsWith('/') ? `${base}${story.data.image.slice(1)}` : story.data.image}
                         alt={story.data.title}
                         class="w-full h-full object-cover opacity-90"
                     />

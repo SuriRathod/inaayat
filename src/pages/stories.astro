@@ -2,9 +2,9 @@
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
 
+const base = import.meta.env.BASE_URL;
 const allStories = await getCollection('stories');
 const sortedStories = allStories.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stories — Inaayat</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
     <style>
         body {
             background: var(--bg-primary);
@@ -37,11 +37,11 @@ const base = import.meta.env.BASE_URL;
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={`${base}`} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href={base} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    <a href={`${base}`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
+                    <a href={base} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
                     <a href={`${base}poems`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
                     <a href={`${base}stories`} class="transition-colors" style="color: var(--text-primary);">Stories</a>
                     <a href={`${base}about`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
@@ -74,7 +74,7 @@ const base = import.meta.env.BASE_URL;
                                 {story.data.image && (
                                     <div class="aspect-[16/9] mb-6 overflow-hidden image-card">
                                         <img 
-                                            src={story.data.image} 
+                                            src={story.data.image.startsWith('/') ? `${base}${story.data.image.slice(1)}` : story.data.image}
                                             alt={story.data.title}
                                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
                                         />

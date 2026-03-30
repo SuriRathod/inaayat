@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL;
-
 const siteTitle = "All Poems";
 const allPoems = await getCollection('poems');
 const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -15,7 +14,7 @@ const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{siteTitle} — Inaayat</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
     <style>
         body {
             background: var(--bg-primary);
@@ -39,11 +38,11 @@ const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={`${base}`} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href={base} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    <a href={`${base}`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
+                    <a href={base} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
                     <a href={`${base}poems`} class="transition-colors" style="color: var(--text-primary);">Poems</a>
                     <a href={`${base}stories`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
                     <a href={`${base}about`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
@@ -75,7 +74,7 @@ const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.
                             {poem.data.image && (
                                 <div class="aspect-[4/3] mb-6 overflow-hidden image-card">
                                     <img 
-                                        src={poem.data.image} 
+                                        src={poem.data.image.startsWith('/') ? `${base}${poem.data.image.slice(1)}` : poem.data.image}
                                         alt={poem.data.title}
                                         class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
                                     />

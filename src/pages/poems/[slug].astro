@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import '../../styles/global.css';
 
+const base = import.meta.env.BASE_URL;
+
 export async function getStaticPaths() {
   const poems = await getCollection('poems');
   return poems.map((poem) => ({
@@ -12,7 +14,6 @@ export async function getStaticPaths() {
 
 const { poem } = Astro.props;
 const { Content } = await poem.render();
-const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -21,8 +22,18 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{poem.data.title} — Inaayat</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
     <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .nav-header {
+            background: rgba(15, 20, 25, 0.8);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
         .poem-content :global(p) {
             margin-bottom: 2.5rem;
             line-height: 2;
@@ -36,16 +47,16 @@ const base = import.meta.env.BASE_URL;
         }
     </style>
 </head>
-<body class="antialiased min-h-screen" style="background: var(--bg-primary); color: var(--text-primary);">
+<body class="antialiased min-h-screen">
     
     <!-- Fixed Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="background: rgba(15, 20, 25, 0.8); border-bottom: 1px solid var(--border-subtle);">
-        <nav class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="flex justify-between items-center h-20">
-                <a href={`${base}`} class="text-xl font-light tracking-widest text-white" style="font-family: var(--serif);">
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href={base} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
-                <a href={`${base}#poetry`} class="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2">
+                <a href={`${base}poems`} class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
                     </svg>
@@ -57,13 +68,13 @@ const base = import.meta.env.BASE_URL;
 
     <!-- Poem Content -->
     <article class="pt-32 pb-24">
-        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12">
             
             <!-- Featured Image -->
             {poem.data.image && (
-                <div class="aspect-[16/9] mb-12 overflow-hidden bg-white/5 border border-white/10">
+                <div class="aspect-[16/9] mb-12 overflow-hidden" style="background: var(--bg-accent); border: 1px solid var(--border-subtle);">
                     <img 
-                        src={poem.data.image} 
+                        src={poem.data.image.startsWith('/') ? `${base}${poem.data.image.slice(1)}` : poem.data.image}
                         alt={poem.data.title}
                         class="w-full h-full object-cover opacity-90"
                     />
@@ -72,10 +83,10 @@ const base = import.meta.env.BASE_URL;
             
             <!-- Header -->
             <header class="mb-16 text-center max-w-2xl mx-auto">
-                <time class="text-xs uppercase tracking-widest text-gray-500 mb-6 block font-light">
+                <time class="text-xs uppercase tracking-widest mb-6 block font-light" style="color: var(--text-muted);">
                     {poem.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </time>
-                <h1 class="text-4xl md:text-6xl font-light leading-tight text-white" style="font-family: var(--serif);">
+                <h1 class="text-4xl md:text-6xl font-light leading-tight" style="font-family: var(--serif); color: var(--text-primary);">
                     {poem.data.title}
                 </h1>
             </header>
@@ -87,15 +98,15 @@ const base = import.meta.env.BASE_URL;
     </article>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-12">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-            <a href={`${base}#poetry`} class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-6">
+    <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
+            <a href={`${base}poems`} class="inline-flex items-center gap-2 text-sm transition-colors mb-6" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
                 </svg>
                 Back to all poems
             </a>
-            <p class="text-sm text-gray-500 font-light">
+            <p class="text-sm font-light" style="color: var(--text-muted);">
                 © 2025 Inaayat
             </p>
         </div>
