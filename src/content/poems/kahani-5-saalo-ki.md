@@ -2,7 +2,7 @@
 title: "Kahani 5 Saalo Ki"
 date: 2017-08-13
 excerpt: "<p>Aaj ka suraj kuch naya sa hai,  Aakho mein roshni aur chehra khila sa hai,  saalo phele shu..."
-image: "/inaayat/images/poems/kahani-5-saalo-ki.jpeg"
+image: "/images/poems/kahani-5-saalo-ki.jpeg"
 ---
 
 <p>Aaj ka suraj kuch naya sa hai,<br>

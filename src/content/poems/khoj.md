@@ -2,7 +2,7 @@
 title: "Khoj"
 date: 2017-11-02
 excerpt: "<p>“Roshni jo dil ko chu jae,  Usse dilse utarne na dena,  Mile jo tumhe apna humsafar,  Fi..."
-image: "/inaayat/images/poems/khoj.jpeg"
+image: "/images/poems/khoj.jpeg"
 ---
 
 <p>“Roshni jo dil ko chu jae,<br>

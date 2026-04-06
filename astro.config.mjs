@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://surirathod.github.io',
-  base: '/inaayat',
+  site: 'https://inaayat.art',
+  base: '/',
   trailingSlash: 'never',
 });

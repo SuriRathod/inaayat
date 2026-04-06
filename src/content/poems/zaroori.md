@@ -2,7 +2,7 @@
 title: "Zaroori"
 date: 2020-05-06
 excerpt: "<p>Zinda toh sabhi hai yaha,  Matlab samajhne ki deri hai,  Girte toh sabhi hai yaha,  Uthk..."
-image: "https://surirathoreblog.wordpress.com/wp-content/uploads/2017/11/khoj.jpeg"
+image: "/images/poems/zaroori.jpeg"
 ---
 
 <p>Zinda toh sabhi hai yaha,<br>

@@ -2,7 +2,7 @@
 title: "Beyond The Sunset"
 date: 2021-08-15
 excerpt: "Over the course of summer as the days became longer our friendship grew stronger."
-image: "/inaayat/images/stories/beyond-the-sunset.jpeg"
+image: "/images/stories/beyond-the-sunset.jpeg"
 readTime: "5 min read"
 ---
 

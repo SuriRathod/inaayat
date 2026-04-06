@@ -2,7 +2,7 @@
 title: "Ek Shahar"
 date: 2020-04-26
 excerpt: "<p>Aakh khulti hai roz subh,  Kya ajeeb yeh sapna lagta hai,  Sapno mein dekha jo Shahar,  ..."
-image: "/inaayat/images/poems/ek-shahar.jpeg"
+image: "/images/poems/ek-shahar.jpeg"
 ---
 
 <p>Aakh khulti hai roz subh,<br>

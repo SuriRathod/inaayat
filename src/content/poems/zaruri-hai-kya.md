@@ -2,7 +2,7 @@
 title: "Zaruri Hai Kya?"
 date: 2019-05-21
 excerpt: "<p>Sochta bohot hai tu,  Sochna zaruri hai Kya?  Kai rasme hai iss duniya ki,  Nibhana Zaru..."
-image: "/inaayat/images/poems/zaruri-hai-kya.jpeg"
+image: "/images/poems/zaruri-hai-kya.jpeg"
 ---
 
 <p>Sochta bohot hai tu,<br>

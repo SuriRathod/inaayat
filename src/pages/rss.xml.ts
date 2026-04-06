@@ -16,7 +16,7 @@ export async function GET() {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   );
 
-  const siteUrl = 'https://surirathod.github.io/inaayat';
+  const siteUrl = 'https://inaayat.art';
   const siteTitle = 'Inaayat — Poetry & Reflections';
   const siteDescription = 'An expression of reality — Words woven from moments of reflection';
 

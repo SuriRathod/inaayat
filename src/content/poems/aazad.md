@@ -2,7 +2,7 @@
 title: "Aazad"
 date: 2020-07-11
 excerpt: "<p>Ek kamre mein baith kar,  kitni kahaniya bun lete hai,  Khudko karke band kahi,  khayalo..."
-image: "/inaayat/images/poems/aazad.jpeg"
+image: "/images/poems/aazad.jpeg"
 ---
 
 <p>Ek kamre mein baith kar,<br>

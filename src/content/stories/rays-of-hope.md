@@ -2,7 +2,7 @@
 title: "Rays of Hope"
 date: 2020-11-27
 excerpt: "Your excerpt for the second story..."
-image: "/inaayat/images/stories/rays-of-hope.jpeg"
+image: "/images/stories/rays-of-hope.jpeg"
 readTime: "4 min read"
 ---
 

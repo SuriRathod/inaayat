@@ -2,7 +2,7 @@
 title: "Pata Nahi"
 date: 2020-04-10
 excerpt: "<p>Band hai kamroo mein hum,  Kal ka kuch pata nahi,  Kehne ko toh insaan hai hum,  Insaniy..."
-image: "/inaayat/images/poems/pata-nahi.jpeg"
+image: "/images/poems/pata-nahi.jpeg"
 ---
 
 <p>Band hai kamroo mein hum,<br>

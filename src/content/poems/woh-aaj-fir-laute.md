@@ -2,7 +2,7 @@
 title: "Woh Aaj Fir Laute"
 date: 2017-06-28
 excerpt: "<p>“Kabhi mile ka aisa kho do jara, toh ek paal rukkar uski yaado mein dekhna,  aksar yaade hi ai..."
-image: "/inaayat/images/poems/woh-aaj-fir-laute.jpeg"
+image: "/images/poems/woh-aaj-fir-laute.jpeg"
 ---
 
 <p>“Kabhi mile ka aisa kho do jara, toh ek paal rukkar uski yaado mein dekhna,<br>

@@ -2,7 +2,7 @@
 title: "Kahani Jo Na Bhuli"
 date: 2017-06-24
 excerpt: "<p>“Kisi din ghumne niklo toh duniya nazar-andaaz na karna, diye mein khush rehkar zyada ki fariyaad..."
-image: "/inaayat/images/poems/kahani-jo-na-bhuli.jpeg"
+image: "/images/poems/kahani-jo-na-bhuli.jpeg"
 ---
 
 <p>“Kisi din ghumne niklo toh duniya nazar-andaaz na karna, diye mein khush rehkar zyada ki fariyaad na karna – Kahani Jo Na Bhuli.”</p>

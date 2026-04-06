@@ -2,7 +2,7 @@
 title: "Baate Jo Ki Khudse"
 date: 2017-08-05
 excerpt: "<p>Na shaame ho hasin,  Na subah ho khushnuma,  kaha aagae hai hum,  kaha le aaya yeh khuma..."
-image: "/inaayat/images/poems/baate-jo-ki-khudse.jpeg"
+image: "/images/poems/baate-jo-ki-khudse.jpeg"
 ---
 
 <p>Na shaame ho hasin,<br>
