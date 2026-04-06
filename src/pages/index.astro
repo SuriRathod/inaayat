@@ -1,21 +1,31 @@
 ---
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import Search from '../components/Search.astro';
+import SEO from '../components/SEO.astro';
+
 
 const base = import.meta.env.BASE_URL;
 const siteTitle = "Inaayat";
 const allPoems = await getCollection('poems');
 const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const recentPoems = sortedPoems.slice(0, 6);
+const allStories = await getCollection('stories');
+const sortedStories = allStories.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{siteTitle} — Poetry & Reflections</title>
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
+    <SEO 
+      title="Inaayat — Poetry & Reflections"
+      description="An expression of reality — Words woven from moments of reflection, capturing the quiet beauty and profound truth of everyday existence."
+    />
+
+    <link rel="icon" type="image/svg+xml" href={base + "/favicon.svg"}>
+
     <style>
         body {
             background: var(--bg-primary);
@@ -26,74 +36,75 @@ const recentPoems = sortedPoems.slice(0, 6);
             background: rgba(15, 20, 25, 0.8);
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .tag-badge {
             background: var(--bg-accent);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
         }
-        
+
         .btn-primary {
             background: var(--accent-blue);
             color: white;
         }
-        
+
         .btn-primary:hover {
             background: #4184e4;
         }
-        
+
         .btn-secondary {
             border: 1px solid var(--border-subtle);
             color: var(--text-primary);
         }
-        
+
         .btn-secondary:hover {
             border-color: var(--text-secondary);
             background: var(--bg-accent);
         }
-        
+
         .stats-section {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .about-section {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
         }
-        
+
         .image-card {
             background: var(--bg-accent);
             border: 1px solid var(--border-subtle);
         }
-        
+
         .footer-border {
             border-top: 1px solid var(--border-subtle);
         }
     </style>
 </head>
+
+<ScrollToTop />
 <body class="antialiased">
     
-    <!-- Fixed Header -->
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={base} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href={base + "/"} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
-                <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    <a href={`${base}#poetry`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Latest</a>
-                    <a href={`${base}poems`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
-                    <a href={`${base}stories`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
-                    <a href={`${base}about`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light items-center">
+                    <a href={base + "#poetry"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Latest</a>
+                    <a href={base + "/poems"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
+                    <a href={base + "/stories"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href={base + "/about"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                    <Search />
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="min-h-screen flex items-center justify-center px-6 pt-20">
         <div class="max-w-5xl mx-auto text-center">
             <div class="inline-block px-4 py-2 rounded-full text-xs uppercase tracking-widest mb-8 tag-badge">
@@ -110,7 +121,7 @@ const recentPoems = sortedPoems.slice(0, 6);
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href={`${base}#poetry`} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-primary">
+                <a href={base + "#poetry"} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-primary">
                     Explore Poetry →
                 </a>
                 <a href="https://www.instagram.com/_._.inaayat._._/" target="_blank" class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
@@ -120,7 +131,6 @@ const recentPoems = sortedPoems.slice(0, 6);
         </div>
     </section>
 
-    <!-- Stats Section -->
     <section class="py-16 stats-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
@@ -140,7 +150,6 @@ const recentPoems = sortedPoems.slice(0, 6);
         </div>
     </section>
 
-    <!-- Poetry Grid -->
     <section id="poetry" class="py-24 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             
@@ -152,7 +161,7 @@ const recentPoems = sortedPoems.slice(0, 6);
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {recentPoems.map((poem) => (
                     <article class="group">
-                        <a href={`${base}poems/${poem.slug}`} class="block">
+                        <a href={base + "/poems/" + poem.slug} class="block">
                             
                             {poem.data.image && (
                                 <div class="aspect-[4/3] mb-6 overflow-hidden image-card">
@@ -189,16 +198,14 @@ const recentPoems = sortedPoems.slice(0, 6);
                 ))}
             </div>
             
-            <!-- View All Button -->
             <div class="text-center mt-16">
-                <a href={`${base}poems`} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
+                <a href={base + "/poems"} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
                     View All {sortedPoems.length} Poems →
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Instagram Section -->
     <section class="py-16 border-y" style="border-color: var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="max-w-3xl mx-auto text-center">
@@ -225,7 +232,6 @@ const recentPoems = sortedPoems.slice(0, 6);
         </div>
     </section>
 
-    <!-- Stories Section -->
     <section class="py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             
@@ -235,82 +241,52 @@ const recentPoems = sortedPoems.slice(0, 6);
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                <!-- Story 1 -->
-                <article class="group">
-                    <a href={`${base}stories/beyond-the-sunset`} class="block">
-                        <div class="aspect-[16/9] mb-6 overflow-hidden image-card">
-                            <img 
-                                src="https://surirathoreblog.wordpress.com/wp-content/uploads/2021/08/pexels-asad-photo-maldives-1268871.jpg" 
-                                alt="Beyond The Sunset"
-                                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
-                            />
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3 text-xs uppercase tracking-widest font-light" style="color: var(--text-muted);">
-                                <time>August 15, 2021</time>
-                                <span>·</span>
-                                <span>5 min read</span>
-                            </div>
-                            
-                            <h3 class="text-2xl font-light leading-tight group-hover:opacity-70 transition-opacity" style="font-family: var(--serif); color: var(--text-primary);">
-                                Beyond The Sunset
-                            </h3>
-                            
-                            <p class="text-sm leading-relaxed line-clamp-3 font-light" style="color: var(--text-secondary);">
-                                Over the course of summer as the days became longer our friendship grew stronger...
-                            </p>
-                            
-                            <div class="flex items-center text-sm font-medium group-hover:gap-2 transition-all" style="color: var(--text-primary);">
-                                Read story
-                                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </a>
-                </article>
+                {featuredStories.map((story) => (
+                    <article class="group">
+                        <a href={base + "/stories/" + story.slug} class="block">
 
-                <!-- Story 2 -->
-                <article class="group">
-                    <a href={`${base}stories/rays-of-hope`} class="block">
-                        <div class="aspect-[16/9] mb-6 overflow-hidden image-card">
-                            <img 
-                                src="https://surirathoreblog.wordpress.com/wp-content/uploads/2020/11/pexels-photo-531756.jpeg" 
-                                alt="Rays of Hope"
-                                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
-                            />
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3 text-xs uppercase tracking-widest font-light" style="color: var(--text-muted);">
-                                <time>November 27, 2020</time>
-                                <span>·</span>
-                                <span>4 min read</span>
+                            {story.data.image && (
+                                <div class="aspect-[16/9] mb-6 overflow-hidden image-card">
+                                    <img 
+                                        src={story.data.image}
+                                        alt={story.data.title}
+                                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
+                                    />
+                                </div>
+                            )}
+
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3 text-xs uppercase tracking-widest font-light" style="color: var(--text-muted);">
+                                    <time>
+                                        {story.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                    </time>
+                                    <span>·</span>
+                                    <span>{story.data.readTime}</span>
+                                </div>
+
+                                <h3 class="text-2xl font-light leading-tight group-hover:opacity-70 transition-opacity" style="font-family: var(--serif); color: var(--text-primary);">
+                                    {story.data.title}
+                                </h3>
+
+                                <p class="text-sm leading-relaxed line-clamp-3 font-light" style="color: var(--text-secondary);">
+                                    {story.data.excerpt.replace(/<p>|<\/p>|<br>/g, ' ').replace(/\s+/g, ' ').trim()}
+                                </p>
+
+                                <div class="flex items-center text-sm font-medium group-hover:gap-2 transition-all" style="color: var(--text-primary);">
+                                    Read story
+                                    <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </div>
                             </div>
-                            
-                            <h3 class="text-2xl font-light leading-tight group-hover:opacity-70 transition-opacity" style="font-family: var(--serif); color: var(--text-primary);">
-                                Rays of Hope
-                            </h3>
-                            
-                            <p class="text-sm leading-relaxed line-clamp-3 font-light" style="color: var(--text-secondary);">
-                                A story of resilience and finding light in unexpected places...
-                            </p>
-                            
-                            <div class="flex items-center text-sm font-medium group-hover:gap-2 transition-all" style="color: var(--text-primary);">
-                                Read story
-                                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </a>
-                </article>
+
+                        </a>
+                    </article>
+                ))}
             </div>
 
-            <!-- View All Button -->
             <div class="text-center mt-16">
-                <a href={`${base}stories`} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
+                <a href={base + "/stories"} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
                     Explore All Stories →
                 </a>
             </div>
@@ -318,7 +294,6 @@ const recentPoems = sortedPoems.slice(0, 6);
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="py-24 about-section scroll-mt-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
             <h2 class="text-4xl md:text-5xl font-light mb-8" style="font-family: var(--serif); color: var(--text-primary);">Writer. Dreamer. Observer.</h2>
@@ -333,7 +308,6 @@ const recentPoems = sortedPoems.slice(0, 6);
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-24 scroll-mt-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
             <h2 class="text-4xl md:text-5xl font-light mb-8" style="font-family: var(--serif); color: var(--text-primary);">Let's Connect</h2>
@@ -358,7 +332,6 @@ const recentPoems = sortedPoems.slice(0, 6);
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="py-12 footer-border">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">

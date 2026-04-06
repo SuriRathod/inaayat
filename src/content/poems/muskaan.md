@@ -2,7 +2,7 @@
 title: "Muskaan"
 date: 2020-04-16
 excerpt: "<p>Mushkil agar waqt hota,Toh dhairya jaan jaate,  Sahi sawaal agar puchte,  Toh tum jaan jaat..."
-image: "/images/poems/muskaan.jpeg"
+image: "/inaayat/images/poems/muskaan.jpeg"
 ---
 
 <p>Mushkil agar waqt hota,Toh dhairya jaan jaate,<br>

@@ -2,7 +2,7 @@
 title: "Rail – Yaado ka Safar"
 date: 2017-07-14
 excerpt: "<p>Bachpan se judi kai rangeen yaade hai,  unn mein se ek hai rail ka safar,  har ek ki apni k..."
-image: "/images/poems/rail-yaado-ka-safar.jpeg"
+image: "/inaayat/images/poems/rail-yaado-ka-safar.jpeg"
 ---
 
 <p>Bachpan se judi kai rangeen yaade hai,<br>

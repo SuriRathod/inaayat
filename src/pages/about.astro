@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -7,10 +9,13 @@ const base = import.meta.env.BASE_URL;
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About — Inaayat</title>
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
+    <SEO 
+      title="About"
+      description="Through poetry and reflection, I seek to illuminate the words we struggle to say, the emotions we find difficult to name, and the experiences we all quietly share."
+    />
+
+    <link rel="icon" type="image/svg+xml" href={base + "/favicon.svg"}>
+
     <style>
         body {
             background: var(--bg-primary);
@@ -23,30 +28,28 @@ const base = import.meta.env.BASE_URL;
         }
     </style>
 </head>
+
 <body class="antialiased">
     
-    <!-- Fixed Header -->
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={base} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href={base + "/"} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    <a href={base} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
-                    <a href={`${base}poems`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
-                    <a href={`${base}stories`} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
-                    <a href={`${base}about`} class="transition-colors" style="color: var(--text-primary);">About</a>
+                    <a href={base + "/"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
+                    <a href={base + "/poems"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
+                    <a href={base + "/stories"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href={base + "/about"} class="transition-colors" style="color: var(--text-primary);">About</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- About Content -->
     <article class="pt-32 pb-24 px-4 sm:px-6 lg:px-12">
         <div class="max-w-3xl mx-auto">
             
-            <!-- Header -->
             <div class="mb-16 text-center">
                 <h1 class="text-4xl md:text-6xl font-light mb-6 leading-tight" style="font-family: var(--serif); color: var(--text-primary);">
                     About Inaayat
@@ -56,7 +59,6 @@ const base = import.meta.env.BASE_URL;
                 </p>
             </div>
 
-            <!-- Main Content -->
             <div class="prose prose-lg max-w-none">
                 
                 <div class="mb-12 leading-relaxed text-lg" style="font-family: var(--serif); color: var(--text-primary); line-height: 2;">
@@ -90,7 +92,6 @@ const base = import.meta.env.BASE_URL;
                     </p>
                 </div>
 
-                <!-- Signature -->
                 <div class="text-center mt-12 pt-8" style="border-top: 1px solid var(--border-subtle);">
                     <p class="text-2xl font-light mb-2" style="font-family: var(--serif); color: var(--text-primary);">
                         — Suri
@@ -99,7 +100,6 @@ const base = import.meta.env.BASE_URL;
 
             </div>
 
-            <!-- Connect Section -->
             <div class="mt-16 pt-12 text-center" style="border-top: 1px solid var(--border-subtle);">
                 <h3 class="text-2xl font-light mb-6" style="font-family: var(--serif); color: var(--text-primary);">
                     Stay Connected
@@ -128,7 +128,6 @@ const base = import.meta.env.BASE_URL;
         </div>
     </article>
 
-    <!-- Footer -->
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">

@@ -2,7 +2,7 @@
 title: "Khoj Apni"
 date: 2017-07-01
 excerpt: "<p>” kisi din soche toh pata chala,  kahi kho se gaye hai hum,  ek safar par niklo aap bhi kab..."
-image: "/images/poems/khoj-apni.jpeg"
+image: "/inaayat/images/poems/khoj-apni.jpeg"
 ---
 
 <p>” kisi din soche toh pata chala,<br>

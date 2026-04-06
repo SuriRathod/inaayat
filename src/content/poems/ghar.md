@@ -2,7 +2,7 @@
 title: "Ghar"
 date: 2017-07-09
 excerpt: "<p>Chale the manzil ki khoj mein jo, aaj kahi kho se gae hai,  yaado ki potli se kuch yaade nikal..."
-image: "/images/poems/ghar.jpeg"
+image: "/inaayat/images/poems/ghar.jpeg"
 ---
 
 <p>Chale the manzil ki khoj mein jo, aaj kahi kho se gae hai,<br>

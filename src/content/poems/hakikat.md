@@ -2,7 +2,7 @@
 title: "Hakikat"
 date: 2017-06-19
 excerpt: "<p>“Apne hone ya na hone ka aihsas jo kara jae, aisi hai kuch yaado ki kahani,  sochne ka mil jae..."
-image: "/images/poems/hakikat.jpeg"
+image: "/inaayat/images/poems/hakikat.jpeg"
 ---
 
 <p>“Apne hone ya na hone ka aihsas jo kara jae, aisi hai kuch yaado ki kahani,<br>

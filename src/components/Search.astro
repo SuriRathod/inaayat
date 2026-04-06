@@ -1,0 +1,232 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<button id="search-trigger" class="search-trigger" aria-label="Search">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+    </svg>
+</button>
+
+<div id="search-overlay" class="search-overlay">
+    <div class="search-container">
+        <div class="search-header">
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Search poems and stories..." 
+                autocomplete="off"
+            />
+            <button id="search-close" class="search-close" aria-label="Close search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div id="search-results" class="search-results"></div>
+    </div>
+</div>
+
+<style>
+    .search-trigger {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+    }
+    
+    .search-trigger:hover {
+        color: var(--text-primary);
+    }
+    
+    .search-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 20, 25, 0.95);
+        backdrop-filter: blur(8px);
+        z-index: 9999;
+        display: none;
+        padding: 2rem;
+    }
+    
+    .search-overlay.active {
+        display: block;
+    }
+    
+    .search-container {
+        max-width: 48rem;
+        margin: 4rem auto 0;
+    }
+    
+    .search-header {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+    
+    #search-input {
+        flex: 1;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+        padding: 1rem 1.5rem;
+        font-size: 1.125rem;
+        border-radius: 0.5rem;
+        font-family: var(--sans);
+    }
+    
+    #search-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+    }
+    
+    .search-close {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+    }
+    
+    .search-close:hover {
+        color: var(--text-primary);
+    }
+    
+    .search-results {
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    
+    .search-result-item {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-subtle);
+        transition: background 0.2s;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+    }
+    
+    .search-result-item:hover {
+        background: var(--bg-secondary);
+    }
+    
+    .search-result-type {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+    }
+    
+    .search-result-title {
+        font-size: 1.25rem;
+        font-family: var(--serif);
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .search-result-excerpt {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    
+    .search-result-date {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 0.5rem;
+    }
+    
+    .no-results {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-secondary);
+    }
+</style>
+
+<script define:vars={{ base }}>
+    const searchTrigger = document.getElementById('search-trigger');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchClose = document.getElementById('search-close');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    
+    let allContent = [];
+    
+    async function loadContent() {
+        try {
+            const response = await fetch(base + 'search-index.json');
+            allContent = await response.json();
+        } catch (e) {
+            console.error('Failed to load search index', e);
+        }
+    }
+    
+    loadContent();
+    
+    searchTrigger?.addEventListener('click', () => {
+        searchOverlay?.classList.add('active');
+        searchInput?.focus();
+    });
+    
+    searchClose?.addEventListener('click', () => {
+        searchOverlay?.classList.remove('active');
+        if (searchInput) searchInput.value = '';
+        if (searchResults) searchResults.innerHTML = '';
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchOverlay?.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            if (searchInput) searchInput.value = '';
+            if (searchResults) searchResults.innerHTML = '';
+        }
+    });
+    
+    searchInput?.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (!query) {
+            if (searchResults) searchResults.innerHTML = '';
+            return;
+        }
+        
+        const results = allContent.filter(item => 
+            item.title.toLowerCase().includes(query) || 
+            item.excerpt.toLowerCase().includes(query)
+        );
+        
+        if (results.length === 0) {
+            if (searchResults) {
+                searchResults.innerHTML = '<div class="no-results">No results found</div>';
+            }
+            return;
+        }
+        
+        const html = results.map(item => `
+            <a href="${base}${item.type}/${item.slug}" class="search-result-item">
+                <div class="search-result-type">${item.type === 'poems' ? 'Poem' : 'Story'}</div>
+                <div class="search-result-title">${item.title}</div>
+                <div class="search-result-excerpt">${item.excerpt.substring(0, 150)}...</div>
+                <div class="search-result-date">${item.date}</div>
+            </a>
+        `).join('');
+        
+        if (searchResults) searchResults.innerHTML = html;
+    });
+</script>

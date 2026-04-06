@@ -2,7 +2,7 @@
 title: "Ek Safar Aisa Bhi"
 date: 2017-06-22
 excerpt: "<p>“Aksar chote-chote makaan badi badi baatein sikha jaate, kuch pal agar sath bitao toh samjh jaoge..."
-image: "/images/poems/ek-safar-aisa-bhi.jpeg"
+image: "/inaayat/images/poems/ek-safar-aisa-bhi.jpeg"
 ---
 
 <p>“Aksar chote-chote makaan badi badi baatein sikha jaate, kuch pal agar sath bitao toh samjh jaoge unki baate – Ek Safar Aisa Bhi ”</p>

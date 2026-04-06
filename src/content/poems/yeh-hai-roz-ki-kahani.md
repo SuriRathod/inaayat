@@ -2,7 +2,7 @@
 title: "Yeh hai Roz ki kahani"
 date: 2019-09-23
 excerpt: "<p>Uthkar saare kaam karna,  Gharme kisi ka na hona,  Kyu roz aaine mein ek surat si hai anjan..."
-image: "/images/poems/yeh-hai-roz-ki-kahani.jpeg"
+image: "/inaayat/images/poems/yeh-hai-roz-ki-kahani.jpeg"
 ---
 
 <p>Uthkar saare kaam karna,<br>

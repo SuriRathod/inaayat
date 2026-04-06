@@ -2,7 +2,7 @@
 title: "Khwahishon ki Naav"
 date: 2017-07-22
 excerpt: "<p>Zindagi k safar mein lehro se na darna,  Tutenge hosle yaha kai dafa,  apne irado pe shaq t..."
-image: "/images/poems/khwahishon-ki-naav.jpeg"
+image: "/inaayat/images/poems/khwahishon-ki-naav.jpeg"
 ---
 
 <p>Zindagi k safar mein lehro se na darna,<br>

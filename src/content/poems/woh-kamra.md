@@ -2,7 +2,7 @@
 title: "Woh Kamra"
 date: 2019-10-12
 excerpt: "<p>Deeware chaar hai iski,  Par umeedo ki khidki zarur hai,  Badalte inn mausamo mein,  Iss..."
-image: "/images/poems/woh-kamra.jpeg"
+image: "/inaayat/images/poems/woh-kamra.jpeg"
 ---
 
 <p>Deeware chaar hai iski,<br>

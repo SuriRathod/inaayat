@@ -2,7 +2,7 @@
 title: "Beyond The Sunset"
 date: 2021-08-15
 excerpt: "Over the course of summer as the days became longer our friendship grew stronger."
-image: "/images/stories/beyond-the-sunset.jpeg"
+image: "/inaayat/images/stories/beyond-the-sunset.jpeg"
 readTime: "5 min read"
 ---
 
@@ -20,9 +20,9 @@ readTime: "5 min read"
 
 <p>Aarush replied with a smile, "Sure! ". I stayed at the monastery for a couple of days over the course of summer when you were gone and since then I've been trying to pin down different human emotions. Sometimes, words are all we need to know in order to know an individual. So, the poetry goes like this:</p>
 
-<p>"मुकाम हासिल करने की तलाश में,</p>
-<p>घर से निकल तोह गया है तू,</p>
-<p>अब जब पूरी दुनिया देख ली है,</p>
+<p>"मुकाम हासिल करने की तलाश में,<br>
+<p>घर से निकल तोह गया है तू,<br>
+<p>अब जब पूरी दुनिया देख ली है,<br>
 <p>तोह लौटकर घर ही गया है तू।"</p>
 
 <p>Remember I told you about how Aarush's writing would save his life? More on that as we embark on our roller-coaster journey of emotions.</p>

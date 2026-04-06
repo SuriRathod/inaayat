@@ -1,28 +1,52 @@
 ---
 import { getCollection } from 'astro:content';
 import '../../styles/global.css';
+import SEO from '../../components/SEO.astro';
+import ScrollToTop from '../../components/ScrollToTop.astro';
 
 const base = import.meta.env.BASE_URL;
 
 export async function getStaticPaths() {
   const poems = await getCollection('poems');
-  return poems.map((poem) => ({
+
+  // Sort poems newest → oldest
+  const sortedPoems = poems.sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  );
+
+  return sortedPoems.map((poem, index) => ({
     params: { slug: poem.slug },
-    props: { poem },
+    props: {
+      poem,
+      prevPoem: sortedPoems[index + 1] || null,
+      nextPoem: sortedPoems[index - 1] || null
+    }
   }));
 }
 
-const { poem } = Astro.props;
+const { poem, prevPoem, nextPoem  } = Astro.props;
 const { Content } = await poem.render();
+
+// Clean excerpt for meta description (remove HTML tags)
+const cleanExcerpt = poem.data.excerpt
+  .replace(/<[^>]*>/g, '')
+  .replace(/\s+/g, ' ')
+  .trim()
+  .substring(0, 160);
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{poem.data.title} — Inaayat</title>
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
+    <SEO 
+      title={poem.data.title}
+      description={cleanExcerpt}
+      image={poem.data.image}
+      type="article"
+      publishedTime={poem.data.date}
+      author="Suri Rathod"
+    />
+    <link rel="icon" type="image/svg+xml" href={base + "/favicon.svg"}>
     <style>
         body {
             background: var(--bg-primary);
@@ -49,14 +73,13 @@ const { Content } = await poem.render();
 </head>
 <body class="antialiased min-h-screen">
     
-    <!-- Fixed Header -->
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={base} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href={base + "/"} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
-                <a href={`${base}poems`} class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                <a href={base + "/poems"} class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
                     </svg>
@@ -66,22 +89,19 @@ const { Content } = await poem.render();
         </nav>
     </header>
 
-    <!-- Poem Content -->
     <article class="pt-32 pb-24">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12">
             
-            <!-- Featured Image -->
             {poem.data.image && (
                 <div class="aspect-[16/9] mb-12 overflow-hidden" style="background: var(--bg-accent); border: 1px solid var(--border-subtle);">
                     <img 
-                        src={poem.data.image.startsWith('/') ? `${base}${poem.data.image.slice(1)}` : poem.data.image}
+                        src={poem.data.image}
                         alt={poem.data.title}
                         class="w-full h-full object-cover opacity-90"
                     />
                 </div>
             )}
             
-            <!-- Header -->
             <header class="mb-16 text-center max-w-2xl mx-auto">
                 <time class="text-xs uppercase tracking-widest mb-6 block font-light" style="color: var(--text-muted);">
                     {poem.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -91,16 +111,40 @@ const { Content } = await poem.render();
                 </h1>
             </header>
             
-            <!-- Poem Text -->
             <div class="poem-content max-w-2xl mx-auto" set:html={poem.body} />
             
         </div>
     </article>
 
-    <!-- Footer -->
+    {/* Next/Previous Navigation */}
+    <section class="py-12 px-4 sm:px-6 lg:px-12" style="border-top: 1px solid var(--border-subtle);">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-center">
+                {prevPoem && (
+                    <a href={base + "/poems/" + prevPoem.slug} class="flex items-center gap-2 transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                        <span class="text-sm">Previous: {prevPoem.data.title}</span>
+                    </a>
+                )}
+                {!prevPoem && <div></div>}
+                
+                {nextPoem && (
+                    <a href={base + "/poems/" + nextPoem.slug} class="flex items-center gap-2 transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                        <span class="text-sm">Next: {nextPoem.data.title}</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                )}
+            </div>
+        </div>
+    </section>
+
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
-            <a href={`${base}poems`} class="inline-flex items-center gap-2 text-sm transition-colors mb-6" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+            <a href={base + "/poems"} class="inline-flex items-center gap-2 text-sm transition-colors mb-6" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
                 </svg>

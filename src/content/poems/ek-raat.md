@@ -2,7 +2,7 @@
 title: "Ek Raat"
 date: 2017-06-17
 excerpt: "<p>“Har Kahani mein kai raate hoti hai, unn raato se hi toh kahani hoti hai.  Unhi raato mein se ..."
-image: "/images/poems/ek-raat.jpeg"
+image: "/inaayat/images/poems/ek-raat.jpeg"
 
 ---
 
