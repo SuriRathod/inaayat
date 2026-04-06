@@ -1,4 +1,6 @@
 ---
+import { SITE_CONFIG } from '../config';
+
 interface Props {
   title?: string;
   description?: string;
@@ -6,7 +8,6 @@ interface Props {
   type?: 'website' | 'article';
   publishedTime?: Date;
   author?: string;
-  canonical?: string;
 }
 
 const {
@@ -15,23 +16,16 @@ const {
   image,
   type = 'website',
   publishedTime,
-  author = 'Suri Rathod',
-  canonical
+  author = SITE_CONFIG.author
 } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
-const siteUrl = 'https://inaayat.art';
-
-// Smart defaults
-const defaultTitle = 'Inaayat — Poetry & Reflections';
-const defaultDescription = 'An expression of reality — Words woven from moments of reflection, capturing the quiet beauty and profound truth of everyday existence.';
-const defaultImage = '/inaayat/images/poems/aksar.jpeg';
-
 // Final values (use props or defaults)
-const pageTitle = title ? `${title} — Inaayat` : defaultTitle;
-const pageDescription = description || defaultDescription;
-const pageImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : `${siteUrl}${defaultImage}`;
-const pageUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
+const pageTitle = title ? `${title} — Inaayat` : SITE_CONFIG.title;
+const pageDescription = description || SITE_CONFIG.description;
+const pageImage = image 
+  ? (image.startsWith('http') ? image : `${SITE_CONFIG.url}${image}`)
+  : `${SITE_CONFIG.url}${SITE_CONFIG.defaultImage}`;
+const pageUrl = `${SITE_CONFIG.url}${Astro.url.pathname}`;
 
 // Truncate description to 160 chars for SEO
 const truncatedDescription = pageDescription.length > 160 
@@ -64,7 +58,7 @@ const truncatedDescription = pageDescription.length > 160
 <meta name="twitter:title" content={pageTitle}>
 <meta name="twitter:description" content={truncatedDescription}>
 <meta name="twitter:image" content={pageImage}>
-<meta name="twitter:creator" content="@suri_rathore_">
+<meta name="twitter:creator" content={SITE_CONFIG.twitter}>
 
 <!-- Additional SEO -->
 <meta name="robots" content="index, follow">

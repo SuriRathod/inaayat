@@ -5,5 +5,5 @@ export default defineConfig({
   integrations: [tailwind()],
   site: 'https://inaayat.art',
   base: '/',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
 });

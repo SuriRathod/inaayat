@@ -1,19 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
-import ScrollToTop from '../components/ScrollToTop.astro';
-import Search from '../components/Search.astro';
 import SEO from '../components/SEO.astro';
+import Search from '../components/Search.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
 
-
-const base = import.meta.env.BASE_URL;
 const siteTitle = "Inaayat";
 const allPoems = await getCollection('poems');
 const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const recentPoems = sortedPoems.slice(0, 6);
 const allStories = await getCollection('stories');
 const sortedStories = allStories.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
+const featuredStories = sortedStories.slice(0, 2);
 ---
 
 <!DOCTYPE html>
@@ -23,9 +21,7 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
       title="Inaayat — Poetry & Reflections"
       description="An expression of reality — Words woven from moments of reflection, capturing the quiet beauty and profound truth of everyday existence."
     />
-
-    <link rel="icon" type="image/svg+xml" href={base + "/favicon.svg"}>
-
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <style>
         body {
             background: var(--bg-primary);
@@ -36,69 +32,67 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
             background: rgba(15, 20, 25, 0.8);
             border-bottom: 1px solid var(--border-subtle);
         }
-
+        
         .tag-badge {
             background: var(--bg-accent);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
         }
-
+        
         .btn-primary {
             background: var(--accent-blue);
             color: white;
         }
-
+        
         .btn-primary:hover {
             background: #4184e4;
         }
-
+        
         .btn-secondary {
             border: 1px solid var(--border-subtle);
             color: var(--text-primary);
         }
-
+        
         .btn-secondary:hover {
             border-color: var(--text-secondary);
             background: var(--bg-accent);
         }
-
+        
         .stats-section {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
         }
-
+        
         .about-section {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
         }
-
+        
         .image-card {
             background: var(--bg-accent);
             border: 1px solid var(--border-subtle);
         }
-
+        
         .footer-border {
             border-top: 1px solid var(--border-subtle);
         }
     </style>
 </head>
-
-<ScrollToTop />
 <body class="antialiased">
     
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={base + "/"} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light items-center">
-                    <a href={base + "#poetry"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Latest</a>
-                    <a href={base + "/poems"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
-                    <a href={base + "/stories"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
-                    <a href={base + "/about"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                    <a href="/#poetry" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Latest</a>
+                    <a href="/poems" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
+                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
                     <Search />
                 </div>
             </div>
@@ -121,7 +115,7 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href={base + "#poetry"} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-primary">
+                <a href="/#poetry" class="inline-block px-8 py-3 text-sm font-medium transition-all btn-primary">
                     Explore Poetry →
                 </a>
                 <a href="https://www.instagram.com/_._.inaayat._._/" target="_blank" class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
@@ -161,7 +155,7 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {recentPoems.map((poem) => (
                     <article class="group">
-                        <a href={base + "/poems/" + poem.slug} class="block">
+                        <a href={"/poems/" + poem.slug} class="block">
                             
                             {poem.data.image && (
                                 <div class="aspect-[4/3] mb-6 overflow-hidden image-card">
@@ -199,7 +193,7 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
             </div>
             
             <div class="text-center mt-16">
-                <a href={base + "/poems"} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
+                <a href="/poems" class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
                     View All {sortedPoems.length} Poems →
                 </a>
             </div>
@@ -243,7 +237,7 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                 {featuredStories.map((story) => (
                     <article class="group">
-                        <a href={base + "/stories/" + story.slug} class="block">
+                        <a href={"/stories/" + story.slug} class="block">
 
                             {story.data.image && (
                                 <div class="aspect-[16/9] mb-6 overflow-hidden image-card">
@@ -286,7 +280,7 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
             </div>
 
             <div class="text-center mt-16">
-                <a href={base + "/stories"} class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
+                <a href="/stories" class="inline-block px-8 py-3 text-sm font-medium transition-all btn-secondary">
                     Explore All Stories →
                 </a>
             </div>
@@ -340,6 +334,8 @@ const featuredStories = sortedStories.slice(0, 2); // show 2 stories like before
             </div>
         </div>
     </footer>
+
+    <ScrollToTop />
 
 </body>
 </html>

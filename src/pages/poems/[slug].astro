@@ -4,30 +4,17 @@ import '../../styles/global.css';
 import SEO from '../../components/SEO.astro';
 import ScrollToTop from '../../components/ScrollToTop.astro';
 
-const base = import.meta.env.BASE_URL;
-
 export async function getStaticPaths() {
   const poems = await getCollection('poems');
-
-  // Sort poems newest → oldest
-  const sortedPoems = poems.sort(
-    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
-  );
-
-  return sortedPoems.map((poem, index) => ({
+  return poems.map((poem) => ({
     params: { slug: poem.slug },
-    props: {
-      poem,
-      prevPoem: sortedPoems[index + 1] || null,
-      nextPoem: sortedPoems[index - 1] || null
-    }
+    props: { poem },
   }));
 }
 
-const { poem, prevPoem, nextPoem  } = Astro.props;
+const { poem } = Astro.props;
 const { Content } = await poem.render();
 
-// Clean excerpt for meta description (remove HTML tags)
 const cleanExcerpt = poem.data.excerpt
   .replace(/<[^>]*>/g, '')
   .replace(/\s+/g, ' ')
@@ -46,7 +33,7 @@ const cleanExcerpt = poem.data.excerpt
       publishedTime={poem.data.date}
       author="Suri Rathod"
     />
-    <link rel="icon" type="image/svg+xml" href={base + "/favicon.svg"}>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <style>
         body {
             background: var(--bg-primary);
@@ -76,10 +63,10 @@ const cleanExcerpt = poem.data.excerpt
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={base + "/"} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
-                <a href={base + "/poems"} class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+                <a href="/poems" class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
                     </svg>
@@ -116,35 +103,9 @@ const cleanExcerpt = poem.data.excerpt
         </div>
     </article>
 
-    {/* Next/Previous Navigation */}
-    <section class="py-12 px-4 sm:px-6 lg:px-12" style="border-top: 1px solid var(--border-subtle);">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex justify-between items-center">
-                {prevPoem && (
-                    <a href={base + "/poems/" + prevPoem.slug} class="flex items-center gap-2 transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                        </svg>
-                        <span class="text-sm">Previous: {prevPoem.data.title}</span>
-                    </a>
-                )}
-                {!prevPoem && <div></div>}
-                
-                {nextPoem && (
-                    <a href={base + "/poems/" + nextPoem.slug} class="flex items-center gap-2 transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
-                        <span class="text-sm">Next: {nextPoem.data.title}</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                )}
-            </div>
-        </div>
-    </section>
-
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
-            <a href={base + "/poems"} class="inline-flex items-center gap-2 text-sm transition-colors mb-6" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+            <a href="/poems" class="inline-flex items-center gap-2 text-sm transition-colors mb-6" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -155,6 +116,8 @@ const cleanExcerpt = poem.data.excerpt
             </p>
         </div>
     </footer>
+
+    <ScrollToTop />
 
 </body>
 </html>

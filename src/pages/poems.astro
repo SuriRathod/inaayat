@@ -2,13 +2,11 @@
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
 
-
-const base = import.meta.env.BASE_URL;
 const allPoems = await getCollection('poems');
 const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// Show 12 poems per page
 const poemsPerPage = 12;
 const totalPoems = sortedPoems.length;
 const displayedPoems = sortedPoems.slice(0, poemsPerPage);
@@ -22,9 +20,7 @@ const hasMore = totalPoems > poemsPerPage;
       title="All Poems"
       description="A complete collection of 24 poems — A journey through words, emotions, and moments of reflection."
     />
-
-    <link rel="icon" type="image/svg+xml" href={base + "/favicon.svg"}>
-
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <style>
         body {
             background: var(--bg-primary);
@@ -70,14 +66,14 @@ const hasMore = totalPoems > poemsPerPage;
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href={base + "/"} class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    <a href={base} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
-                    <a href={base + "/poems"} class="transition-colors" style="color: var(--text-primary);">Poems</a>
-                    <a href={base + "/stories"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
-                    <a href={base + "/about"} class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                    <a href="/" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
+                    <a href="/poems" class="transition-colors" style="color: var(--text-primary);">Poems</a>
+                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
                 </div>
             </div>
         </nav>
@@ -99,7 +95,7 @@ const hasMore = totalPoems > poemsPerPage;
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12" id="poems-grid">
                 {displayedPoems.map((poem) => (
                     <article class="group poem-card">
-                        <a href={base + "/poems/" + poem.slug} class="block">
+                        <a href={"/poems/" + poem.slug} class="block">
                             
                             {poem.data.image && (
                                 <div class="aspect-[4/3] mb-6 overflow-hidden image-card">
@@ -138,7 +134,7 @@ const hasMore = totalPoems > poemsPerPage;
                 <div class="hidden-poems" id="hidden-poems">
                     {sortedPoems.slice(poemsPerPage).map((poem) => (
                         <article class="group poem-card">
-                            <a href={base + "/poems/" + poem.slug} class="block">
+                            <a href={"/poems/" + poem.slug} class="block">
                                 
                                 {poem.data.image && (
                                     <div class="aspect-[4/3] mb-6 overflow-hidden image-card">
@@ -194,6 +190,8 @@ const hasMore = totalPoems > poemsPerPage;
             </div>
         </div>
     </footer>
+
+    <ScrollToTop />
 
     <script>
         const loadMoreBtn = document.getElementById('load-more');
