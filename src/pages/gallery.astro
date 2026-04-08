@@ -1,0 +1,139 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import { GALLERY_TRIPS } from '../gallery-config';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <SEO 
+      title="Gallery"
+      description="A photographic journey through the places I've visited and moments I've captured — from mountain peaks to city streets."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .nav-header {
+            background: rgba(15, 20, 25, 0.8);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .trip-card {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .trip-card:hover {
+            border-color: var(--text-secondary);
+            transform: translateY(-4px);
+        }
+        
+        .trip-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        
+        .trip-card:hover .trip-image {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                    INAAYAT
+                </a>
+                <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
+                    <a href="/poems" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
+                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/gallery" class="transition-colors" style="color: var(--text-primary);">Gallery</a>
+                    <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-light mb-4" style="font-family: var(--serif); color: var(--text-primary);">
+                Gallery
+            </h1>
+            <p class="text-lg font-light" style="color: var(--text-secondary);">
+                A visual journey through places visited and moments captured
+            </p>
+        </div>
+    </section>
+
+    <section class="pb-24 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+            {GALLERY_TRIPS.length > 0 ? (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {GALLERY_TRIPS.map((trip) => (
+                        <a href={`/gallery/${trip.id}`} class="trip-card block">
+                            <div class="overflow-hidden">
+                                <img 
+                                    src={trip.coverImage} 
+                                    alt={trip.title}
+                                    class="trip-image"
+                                />
+                            </div>
+                            <div class="p-6">
+                                <div class="text-xs uppercase tracking-widest mb-3 font-light" style="color: var(--text-muted);">
+                                    {trip.date}
+                                </div>
+                                <h3 class="text-2xl font-light mb-2" style="font-family: var(--serif); color: var(--text-primary);">
+                                    {trip.title}
+                                </h3>
+                                <p class="text-sm font-light" style="color: var(--text-secondary);">
+                                    {trip.description}
+                                </p>
+                                <div class="mt-4 text-sm font-light" style="color: var(--text-muted);">
+                                    {trip.photos.length} {trip.photos.length === 1 ? 'photo' : 'photos'}
+                                </div>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            ) : (
+                <div class="text-center py-24">
+                    <p class="text-lg font-light mb-4" style="color: var(--text-secondary);">
+                        Gallery coming soon...
+                    </p>
+                    <p class="text-sm font-light" style="color: var(--text-muted);">
+                        Add your trips in <code>src/gallery-config.ts</code>
+                    </p>
+                </div>
+            )}
+        </div>
+    </section>
+
+    <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">
+                <div class="flex items-center gap-2">
+                    <p>© 2017-{new Date().getFullYear()} · All Rights Reserved</p>
+                    <span>·</span>
+                    <a href="/copyright" class="transition-colors" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Copyright Policy</a>
+                </div>
+                <p>Inaayat</p>
+            </div>
+        </div>
+    </footer>
+
+    <ScrollToTop />
+
+</body>
+</html>

@@ -6,24 +6,13 @@ import ScrollToTop from '../../components/ScrollToTop.astro';
 
 export async function getStaticPaths() {
   const poems = await getCollection('poems');
-
-  const sorted = poems.sort((a, b) => {
-    const dateA = new Date(a.data.date).getTime();
-    const dateB = new Date(b.data.date).getTime();
-    return dateB - dateA;
-  });
-
-  return sorted.map((poem, index) => ({
+  return poems.map((poem) => ({
     params: { slug: poem.slug },
-    props: {
-      poem,
-      prevPoem: sorted[index + 1] || null,
-      nextPoem: sorted[index - 1] || null
-    }
+    props: { poem },
   }));
 }
 
-const { poem, prevPoem, nextPoem } = Astro.props;
+const { poem } = Astro.props;
 const { Content } = await poem.render();
 
 const cleanExcerpt = poem.data.excerpt
@@ -32,7 +21,6 @@ const cleanExcerpt = poem.data.excerpt
   .trim()
   .substring(0, 160);
 ---
-
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -112,50 +100,14 @@ const cleanExcerpt = poem.data.excerpt
             
             <div class="poem-content max-w-2xl mx-auto" set:html={poem.body} />
             
+            <div class="text-center mt-12 pt-8" style="border-top: 1px solid var(--border-subtle);">
+                <p class="text-sm font-light" style="color: var(--text-muted);">
+                    © {poem.data.date.getFullYear()} Suri Rathod · All Rights Reserved
+                </p>
+            </div>
+            
         </div>
     </article>
-
-    {/* Next/Previous Navigation */}
-<section class="py-12 px-4 sm:px-6 lg:px-12" style="border-top: 1px solid var(--border-subtle);">
-  <div class="max-w-4xl mx-auto">
-    <div class="flex justify-between items-center">
-
-      {prevPoem ? (
-        <a 
-          href={"/poems/" + prevPoem.slug} 
-          class="flex items-center gap-2 transition-colors" 
-          style="color: var(--text-secondary);" 
-          onmouseover="this.style.color='var(--text-primary)'" 
-          onmouseout="this.style.color='var(--text-secondary)'"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-          </svg>
-          <span class="text-sm">Previous: {prevPoem.data.title}</span>
-        </a>
-      ) : (
-        <div></div>
-      )}
-
-      {nextPoem && (
-        <a 
-          href={"/poems/" + nextPoem.slug} 
-          class="flex items-center gap-2 transition-colors" 
-          style="color: var(--text-secondary);" 
-          onmouseover="this.style.color='var(--text-primary)'" 
-          onmouseout="this.style.color='var(--text-secondary)'"
-        >
-          <span class="text-sm">Next: {nextPoem.data.title}</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </a>
-      )}
-
-    </div>
-  </div>
-</section>
-
 
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">

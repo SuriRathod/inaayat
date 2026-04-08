@@ -22,6 +22,15 @@ import ScrollToTop from '../components/ScrollToTop.astro';
             background: rgba(15, 20, 25, 0.8);
             border-bottom: 1px solid var(--border-subtle);
         }
+        
+        .author-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border-subtle);
+            margin: 0 auto 2rem;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -33,9 +42,9 @@ import ScrollToTop from '../components/ScrollToTop.astro';
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    <a href="/" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Home</a>
                     <a href="/poems" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
                     <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/gallery" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Gallery</a>
                     <a href="/about" class="transition-colors" style="color: var(--text-primary);">About</a>
                 </div>
             </div>
@@ -46,6 +55,14 @@ import ScrollToTop from '../components/ScrollToTop.astro';
         <div class="max-w-3xl mx-auto">
             
             <div class="mb-16 text-center">
+                <!-- Author Photo - CHANGE THIS IMAGE -->
+                <img 
+                    src="/images/author.jpg" 
+                    alt="Suri Rathod"
+                    class="author-photo"
+                />
+                <!-- To change your photo: replace /public/images/author.jpg with your photo -->
+                
                 <h1 class="text-4xl md:text-6xl font-light mb-6 leading-tight" style="font-family: var(--serif); color: var(--text-primary);">
                     About Inaayat
                 </h1>
@@ -126,8 +143,12 @@ import ScrollToTop from '../components/ScrollToTop.astro';
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">
-                <p>Built with purpose · Updated regularly</p>
-                <p>© 2025 · Inaayat</p>
+                <div class="flex items-center gap-2">
+                    <p>© 2017-{new Date().getFullYear()} · All Rights Reserved</p>
+                    <span>·</span>
+                    <a href="/copyright" class="transition-colors" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Copyright Policy</a>
+                </div>
+                <p>Inaayat</p>
             </div>
         </div>
     </footer>

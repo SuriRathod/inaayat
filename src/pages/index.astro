@@ -89,9 +89,10 @@ const featuredStories = sortedStories.slice(0, 2);
                     INAAYAT
                 </a>
                 <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light items-center">
-                    <a href="/#poetry" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Latest</a>
+                    
                     <a href="/poems" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
                     <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/gallery" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Gallery</a>
                     <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
                     <Search />
                 </div>
@@ -326,14 +327,18 @@ const featuredStories = sortedStories.slice(0, 2);
         </div>
     </section>
 
-    <footer class="py-12 footer-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">
-                <p>Built with purpose · Updated regularly</p>
-                <p>© 2025 · Inaayat</p>
+    <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">
+            <div class="flex items-center gap-2">
+                <p>© 2017-{new Date().getFullYear()} · All Rights Reserved</p>
+                <span>·</span>
+                <a href="/copyright" class="transition-colors" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Copyright Policy</a>
             </div>
+            <p>Inaayat</p>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <ScrollToTop />
 

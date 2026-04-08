@@ -60,9 +60,9 @@ const truncatedDescription = pageDescription.length > 160
 <meta name="twitter:image" content={pageImage}>
 <meta name="twitter:creator" content={SITE_CONFIG.twitter}>
 
-<!-- Additional SEO -->
-<meta name="robots" content="index, follow">
-<meta name="googlebot" content="index, follow">
+<!-- SEO & Anti-AI Scraping -->
+<meta name="robots" content="index, follow, noai, noimageai">
+<meta name="googlebot" content="index, follow, noai, noimageai">
 
 <!-- Structured Data (JSON-LD) -->
 <script type="application/ld+json" set:html={JSON.stringify({
@@ -72,6 +72,11 @@ const truncatedDescription = pageDescription.length > 160
   "description": truncatedDescription,
   "url": pageUrl,
   "image": pageImage,
+  "copyrightHolder": {
+    "@type": "Person",
+    "name": "Suri Rathod"
+  },
+  "copyrightYear": "2017",
   ...(type === 'article' && {
     "author": {
       "@type": "Person",

@@ -1,0 +1,219 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <SEO 
+      title="Copyright Policy"
+      description="Copyright and intellectual property information for Inaayat poetry and content."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .nav-header {
+            background: rgba(15, 20, 25, 0.8);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .content-section {
+            margin-bottom: 3rem;
+        }
+        
+        .content-section h2 {
+            font-family: var(--serif);
+            font-size: 1.875rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .content-section h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            margin-top: 2rem;
+        }
+        
+        .content-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .content-section ul {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-box {
+            background: var(--bg-accent);
+            border-left: 3px solid var(--accent-blue);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
+                    INAAYAT
+                </a>
+                <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
+                    <a href="/poems" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Poems</a>
+                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
+                    <a href="/gallery" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Gallery</a>
+                    <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <article class="pt-32 pb-24 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-4xl mx-auto">
+            
+            <div class="mb-16 text-center">
+                <h1 class="text-4xl md:text-6xl font-light mb-6 leading-tight" style="font-family: var(--serif); color: var(--text-primary);">
+                    Copyright Policy
+                </h1>
+                <p class="text-lg font-light" style="color: var(--text-secondary);">
+                    Protecting original creative work
+                </p>
+            </div>
+
+            <div class="highlight-box">
+                <p style="color: var(--text-primary); font-weight: 500; margin-bottom: 0;">
+                    © 2017-{new Date().getFullYear()} Suri Rathod. All Rights Reserved.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>Copyright Notice</h2>
+                <p>
+                    All content on this website, including but not limited to poems, stories, photographs, images, 
+                    text, graphics, and design elements, is the original work of Suri Rathod and is protected by 
+                    international copyright laws.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>What This Means</h2>
+                
+                <h3>You May NOT:</h3>
+                <ul>
+                    <li>Copy, reproduce, or republish any poems or stories without explicit written permission</li>
+                    <li>Use any content for commercial purposes</li>
+                    <li>Claim authorship of any work published on this site</li>
+                    <li>Modify, adapt, or create derivative works from the content</li>
+                    <li>Use automated tools to scrape or download content in bulk</li>
+                    <li>Train AI models or language learning models on this content</li>
+                    <li>Remove or alter copyright notices or attribution</li>
+                </ul>
+
+                <h3>You May:</h3>
+                <ul>
+                    <li>Share links to poems or stories on social media (with proper attribution)</li>
+                    <li>Quote brief excerpts (up to 2-3 lines) with proper attribution and a link back to the original</li>
+                    <li>Read and enjoy the content for personal, non-commercial use</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Proper Attribution</h2>
+                <p>
+                    If you wish to share a brief excerpt, please use the following format:
+                </p>
+                <div class="highlight-box">
+                    <p style="color: var(--text-primary); font-style: italic; margin-bottom: 0.5rem;">
+                        "[Excerpt from poem]"
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0;">
+                        — Suri Rathod, from "[Poem Title]" (https://inaayat.art)
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>AI and Web Scraping</h2>
+                <p>
+                    This website explicitly prohibits the use of any content for training artificial intelligence models, 
+                    large language models, or any automated data collection systems. This includes but is not limited to 
+                    GPT, Claude, Bard, LLaMA, and any other AI systems.
+                </p>
+                <p>
+                    Web scraping, automated downloading, or bulk extraction of content is strictly prohibited.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>Photography & Images</h2>
+                <p>
+                    All photographs and images in the Gallery section are original works and are similarly protected. 
+                    Downloading, reproducing, or using these images without permission is prohibited.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>Reporting Copyright Infringement</h2>
+                <p>
+                    If you believe your work has been copied in a way that constitutes copyright infringement, 
+                    or if you discover unauthorized use of content from this website, please contact:
+                </p>
+                <div class="highlight-box">
+                    <p style="color: var(--text-primary); margin-bottom: 0;">
+                        Email: [Your email address]<br>
+                        Subject: Copyright Infringement Notice
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Permission Requests</h2>
+                <p>
+                    If you would like to use any content from this website for purposes not covered under fair use, 
+                    please contact me for permission. I am generally happy to grant permission for educational use, 
+                    non-commercial publications, and other worthy causes.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>Changes to This Policy</h2>
+                <p>
+                    This copyright policy may be updated from time to time. The last updated date will be shown below. 
+                    Continued use of this website constitutes acceptance of the current policy.
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">
+                    Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+            </div>
+
+        </div>
+    </article>
+
+    <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">
+                <p>© 2017-{new Date().getFullYear()} · All Rights Reserved</p>
+                <p>Inaayat</p>
+            </div>
+        </div>
+    </footer>
+
+    <ScrollToTop />
+
+</body>
+</html>
