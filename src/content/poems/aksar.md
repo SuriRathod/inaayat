@@ -17,4 +17,3 @@ Meine tanaha paya hai.</p>
 
 <p>– Suri</p>
 
-<p>Subscribe</p>

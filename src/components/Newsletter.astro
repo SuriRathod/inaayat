@@ -1,0 +1,75 @@
+---
+// Newsletter signup component - works with Substack, Mailchimp, or any email service
+const embedUrl = "https://surirathod.substack.com/embed"; // REPLACE with your Substack embed URL
+---
+
+<div class="newsletter-signup">
+    <div class="newsletter-content">
+        <h3 class="newsletter-title">Stay Updated</h3>
+        <p class="newsletter-description">
+            Get new poems delivered to your inbox. No spam, just poetry.
+        </p>
+        
+        <!-- Substack Embed Form -->
+        <iframe 
+            src={embedUrl}
+            width="100%" 
+            height="320" 
+            style="border:1px solid var(--border-subtle); background: var(--bg-secondary);" 
+            frameborder="0" 
+            scrolling="no"
+        ></iframe>
+        
+        <p class="newsletter-note">
+            Unsubscribe anytime. We respect your privacy.
+        </p>
+    </div>
+</div>
+
+<style>
+    .newsletter-signup {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        padding: 2rem;
+        margin: 3rem 0;
+        text-align: center;
+    }
+    
+    .newsletter-content {
+        max-width: 28rem;
+        margin: 0 auto;
+    }
+    
+    .newsletter-title {
+        font-family: var(--serif);
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+    }
+    
+    .newsletter-description {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    .newsletter-note {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        margin-top: 1rem;
+    }
+</style>
+
+<!-- 
+HOW TO SETUP:
+1. Create a Substack account at https://substack.com
+2. Go to Settings → Publication details
+3. Copy your embed code URL
+4. Replace the embedUrl above with your URL
+5. Done!
+
+OR use Mailchimp/Buttondown:
+Replace the iframe with their embed code
+-->

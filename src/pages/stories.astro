@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
+import Newsletter from '../components/Newsletter.astro';
 
 const allStories = await getCollection('stories');
 const sortedStories = allStories.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -47,6 +48,7 @@ const sortedStories = allStories.sort((a, b) => b.data.date.valueOf() - a.data.d
                     <a href="/stories" class="transition-colors" style="color: var(--text-primary);">Stories</a>
                     <a href="/gallery" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Gallery</a>
                     <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                    <a href="/contact" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Contact</a>
                 </div>
             </div>
         </nav>
@@ -122,6 +124,8 @@ const sortedStories = allStories.sort((a, b) => b.data.date.valueOf() - a.data.d
             )}
         </div>
     </section>
+
+    <Newsletter />
 
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">

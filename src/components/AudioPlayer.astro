@@ -1,0 +1,79 @@
+---
+interface Props {
+  audioSrc: string;
+  title: string;
+}
+
+const { audioSrc, title } = Astro.props;
+---
+
+<div class="audio-player">
+    <div class="audio-header">
+        <svg class="audio-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13M9 18l-7 2V7l7-2M9 18l12-2M9 9l12-2"/>
+        </svg>
+        <span class="audio-label">Listen to this poem</span>
+    </div>
+    <audio controls class="audio-element">
+        <source src={audioSrc} type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<style>
+    .audio-player {
+        background: var(--bg-accent);
+        border: 1px solid var(--border-subtle);
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 0.5rem;
+    }
+    
+    .audio-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .audio-icon {
+        color: var(--accent-blue);
+    }
+    
+    .audio-label {
+        color: var(--text-primary);
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    
+    .audio-element {
+        width: 100%;
+        height: 40px;
+        outline: none;
+    }
+    
+    .audio-element::-webkit-media-controls-panel {
+        background-color: var(--bg-secondary);
+    }
+</style>
+
+<!-- 
+HOW TO USE:
+
+1. Record your poem audio (Voice Memos app on phone)
+2. Save as MP3
+3. Upload to: public/audio/poem-name.mp3
+4. Add to poem page:
+
+<AudioPlayer 
+  audioSrc="/audio/aksar.mp3"
+  title="Aksar"
+/>
+
+TIPS FOR RECORDING:
+- Find quiet space
+- Speak clearly, naturally
+- Read slowly (poetry needs pauses)
+- Do 2-3 takes, pick best one
+- No editing needed - raw is authentic
+-->

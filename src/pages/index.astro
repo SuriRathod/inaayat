@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
-import Search from '../components/Search.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
+import Newsletter from '../components/Newsletter.astro';
 
 const siteTitle = "Inaayat";
 const allPoems = await getCollection('poems');
@@ -94,6 +94,7 @@ const featuredStories = sortedStories.slice(0, 2);
                     <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
                     <a href="/gallery" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Gallery</a>
                     <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
+                    <a href="/contact" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Contact</a>
                     
                 </div>
             </div>
@@ -327,6 +328,8 @@ const featuredStories = sortedStories.slice(0, 2);
         </div>
     </section>
 
+    <Newsletter />
+    
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light" style="color: var(--text-muted);">

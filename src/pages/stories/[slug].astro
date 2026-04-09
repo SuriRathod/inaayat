@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import '../../styles/global.css';
 import SEO from '../../components/SEO.astro';
 import ScrollToTop from '../../components/ScrollToTop.astro';
+import Newsletter from '../../components/Newsletter.astro';
 
 export async function getStaticPaths() {
   const stories = await getCollection('stories');
@@ -75,6 +76,7 @@ const { Content } = await story.render();
                     </svg>
                     All Stories
                 </a>
+                <a href="/contact" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Contact</a>
             </div>
         </nav>
     </header>
@@ -113,6 +115,8 @@ const { Content } = await story.render();
             
         </div>
     </article>
+
+    <Newsletter />
 
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">

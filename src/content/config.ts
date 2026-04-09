@@ -7,6 +7,7 @@ const poemsCollection = defineCollection({
     date: z.date(),
     excerpt: z.string(),
     image: z.string().optional(),
+    audio: z.string().optional(),
   }),
 });
 
