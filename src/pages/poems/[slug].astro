@@ -7,18 +7,25 @@ import Newsletter from '../../components/Newsletter.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
 import Navigation from '../../components/Navigation.astro';
 
-
-
 export async function getStaticPaths() {
   const poems = await getCollection('poems');
-  return poems.map((poem) => ({
+
+  // Sort newest → oldest
+  const sortedPoems = poems.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  );
+
+  return sortedPoems.map((poem, index) => ({
     params: { slug: poem.slug },
-    props: { poem },
+    props: {
+      poem,
+      prevPoem: sortedPoems[index + 1] || null,
+      nextPoem: sortedPoems[index - 1] || null,
+    },
   }));
 }
 
-const { poem } = Astro.props;
-const { Content } = await poem.render();
+const { poem, prevPoem, nextPoem } = Astro.props;
 
 const cleanExcerpt = poem.data.excerpt
   .replace(/<[^>]*>/g, '')
@@ -39,17 +46,15 @@ const cleanExcerpt = poem.data.excerpt
       author="Suri Rathod"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
     <style>
         body {
             background: var(--bg-primary);
             color: var(--text-primary);
         }
-        
-        .nav-header {
-            background: rgba(15, 20, 25, 0.8);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        
+
+        /* REMOVE old .nav-header — Navigation.astro handles this */
+
         .poem-content :global(p) {
             margin-bottom: 2.5rem;
             line-height: 2;
@@ -57,21 +62,88 @@ const cleanExcerpt = poem.data.excerpt
             font-size: 1.125rem;
             color: #e5e5e5;
         }
-        
+
         .poem-content :global(p:last-child) {
             margin-bottom: 0;
         }
+
+        /* Prev/Next Navigation */
+        .poem-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .poem-nav-link {
+            padding: 1.5rem;
+            border: 1px solid var(--border-subtle);
+            text-decoration: none;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .poem-nav-link:hover {
+            border-color: var(--text-secondary);
+            transform: translateY(-2px);
+        }
+
+        .poem-nav-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .poem-nav-title {
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--text-primary);
+        }
+
+        .poem-nav-link.next {
+            text-align: right;
+        }
+
+        .poem-nav-link.next .poem-nav-label {
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 640px) {
+            .poem-nav {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .poem-nav-link.next {
+                text-align: left;
+            }
+
+            .poem-nav-link.next .poem-nav-label {
+                justify-content: flex-start;
+            }
+        }
     </style>
 </head>
+
 <body class="antialiased min-h-screen">
-    
+
     <Navigation />
 
     <article class="pt-32 pb-24">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12">
-            
+
             {poem.data.image && (
-                <div class="aspect-[16/9] mb-12 overflow-hidden" style="background: var(--bg-accent); border: 1px solid var(--border-subtle);">
+                <div class="aspect-[16/9] mb-12 overflow-hidden"
+                     style="background: var(--bg-accent); border: 1px solid var(--border-subtle);">
                     <img 
                         src={poem.data.image}
                         alt={poem.data.title}
@@ -79,12 +151,19 @@ const cleanExcerpt = poem.data.excerpt
                     />
                 </div>
             )}
-            
+
             <header class="mb-16 text-center max-w-2xl mx-auto">
-                <time class="text-xs uppercase tracking-widest mb-6 block font-light" style="color: var(--text-muted);">
-                    {poem.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                <time class="text-xs uppercase tracking-widest mb-6 block font-light"
+                      style="color: var(--text-muted);">
+                    {poem.data.date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
                 </time>
-                <h1 class="text-4xl md:text-6xl font-light leading-tight" style="font-family: var(--serif); color: var(--text-primary);">
+
+                <h1 class="text-4xl md:text-6xl font-light leading-tight"
+                    style="font-family: var(--serif); color: var(--text-primary);">
                     {poem.data.title}
                 </h1>
             </header>
@@ -94,17 +173,48 @@ const cleanExcerpt = poem.data.excerpt
                     audioSrc={poem.data.audio}
                     title={poem.data.title}
                 />
-                )}
+            )}
 
-            
             <div class="poem-content max-w-2xl mx-auto" set:html={poem.body} />
-            
-            <div class="text-center mt-12 pt-8" style="border-top: 1px solid var(--border-subtle);">
+
+            <div class="text-center mt-12 pt-8"
+                 style="border-top: 1px solid var(--border-subtle);">
                 <p class="text-sm font-light" style="color: var(--text-muted);">
                     © {poem.data.date.getFullYear()} Suri Rathod · All Rights Reserved
                 </p>
             </div>
-            
+
+            <!-- Previous / Next Navigation -->
+            <nav class="poem-nav max-w-2xl mx-auto">
+
+                {prevPoem ? (
+                    <a href={`/poems/${prevPoem.slug}`} class="poem-nav-link prev">
+                        <span class="poem-nav-label">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </span>
+                        <span class="poem-nav-title">{prevPoem.data.title}</span>
+                    </a>
+                ) : <div></div>}
+
+                {nextPoem ? (
+                    <a href={`/poems/${nextPoem.slug}`} class="poem-nav-link next">
+                        <span class="poem-nav-label">
+                            Next
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                        <span class="poem-nav-title">{nextPoem.data.title}</span>
+                    </a>
+                ) : <div></div>}
+
+            </nav>
+
         </div>
     </article>
 
@@ -112,14 +222,20 @@ const cleanExcerpt = poem.data.excerpt
 
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
-            <a href="/poems" class="inline-flex items-center gap-2 text-sm transition-colors mb-6" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+            <a href="/poems"
+               class="inline-flex items-center gap-2 text-sm transition-colors mb-6"
+               style="color: var(--text-secondary);"
+               onmouseover="this.style.color='var(--text-primary)'"
+               onmouseout="this.style.color='var(--text-secondary)'">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M15 19l-7-7 7-7"/>
                 </svg>
                 Back to all poems
             </a>
+
             <p class="text-sm font-light" style="color: var(--text-muted);">
-                © 2025 Inaayat
+                © 2017-{new Date().getFullYear()} · All Rights Reserved
             </p>
         </div>
     </footer>

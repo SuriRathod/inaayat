@@ -5,7 +5,6 @@ import ScrollToTop from '../../components/ScrollToTop.astro';
 import { GALLERY_TRIPS } from '../../gallery-config';
 import Navigation from '../../components/Navigation.astro';
 
-
 export async function getStaticPaths() {
   return GALLERY_TRIPS.map((trip) => ({
     params: { slug: trip.id },
@@ -25,23 +24,21 @@ const { trip } = Astro.props;
       image={trip.coverImage}
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
     <style>
         body {
             background: var(--bg-primary);
             color: var(--text-primary);
         }
-        
-        .nav-header {
-            background: rgba(15, 20, 25, 0.8);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        
+
+        /* REMOVE old .nav-header — Navigation.astro handles this */
+
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
-        
+
         .photo-item {
             background: var(--bg-accent);
             border: 1px solid var(--border-subtle);
@@ -49,23 +46,23 @@ const { trip } = Astro.props;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .photo-item:hover {
             border-color: var(--text-secondary);
             transform: translateY(-4px);
         }
-        
+
         .photo-item img {
             width: 100%;
             aspect-ratio: 4/3;
             object-fit: cover;
             transition: transform 0.7s ease;
         }
-        
+
         .photo-item:hover img {
             transform: scale(1.05);
         }
-        
+
         /* Lightbox */
         .lightbox {
             display: none;
@@ -80,17 +77,17 @@ const { trip } = Astro.props;
             justify-content: center;
             padding: 2rem;
         }
-        
+
         .lightbox.active {
             display: flex;
         }
-        
+
         .lightbox img {
             max-width: 90%;
             max-height: 90%;
             object-fit: contain;
         }
-        
+
         .lightbox-close {
             position: absolute;
             top: 2rem;
@@ -102,7 +99,7 @@ const { trip } = Astro.props;
             cursor: pointer;
             padding: 0.5rem;
         }
-        
+
         .lightbox-nav {
             position: absolute;
             top: 50%;
@@ -115,23 +112,24 @@ const { trip } = Astro.props;
             padding: 1rem;
             transition: background 0.2s;
         }
-        
+
         .lightbox-nav:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-        
+
         .lightbox-prev {
             left: 2rem;
         }
-        
+
         .lightbox-next {
             right: 2rem;
         }
     </style>
 </head>
+
 <body class="antialiased">
-    
-   <Navigation />
+
+    <Navigation />
 
     <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-12">
         <div class="max-w-7xl mx-auto">
@@ -196,49 +194,49 @@ const { trip } = Astro.props;
 
     <script define:vars={{ photos: trip.photos }}>
         let currentIndex = 0;
-        
+
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxClose = document.getElementById('lightbox-close');
         const lightboxPrev = document.getElementById('lightbox-prev');
         const lightboxNext = document.getElementById('lightbox-next');
         const photoItems = document.querySelectorAll('.photo-item');
-        
+
         function openLightbox(index) {
             currentIndex = index;
             lightboxImg.src = photos[currentIndex].src;
             lightbox.classList.add('active');
         }
-        
+
         function closeLightbox() {
             lightbox.classList.remove('active');
         }
-        
+
         function showPrev() {
             currentIndex = (currentIndex - 1 + photos.length) % photos.length;
             lightboxImg.src = photos[currentIndex].src;
         }
-        
+
         function showNext() {
             currentIndex = (currentIndex + 1) % photos.length;
             lightboxImg.src = photos[currentIndex].src;
         }
-        
+
         photoItems.forEach((item, index) => {
             item.addEventListener('click', () => openLightbox(index));
         });
-        
+
         lightboxClose.addEventListener('click', closeLightbox);
         lightboxPrev.addEventListener('click', showPrev);
         lightboxNext.addEventListener('click', showNext);
-        
+
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
-        
+
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
-            
+
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') showPrev();
             if (e.key === 'ArrowRight') showNext();
