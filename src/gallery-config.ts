@@ -10,32 +10,32 @@ export const GALLERY_TRIPS = [
     coverImage: '/images/gallery/Florida 2025/Cover.jpg',
     photos: [
       {
-        src: '/images/gallery/Florida 2025/photo1.jpg',
+        src: '/images/gallery/Florida 2025/Photo1.jpg',
         caption: 'Naples Garden',
         alt: 'Serene Boardwalk'
       },
        {
-        src: '/images/gallery/Florida 2025/photo2.jpg',
+        src: '/images/gallery/Florida 2025/Photo2.jpg',
         caption: 'Everglades National Park',
         alt: 'Park Welcome Center'
       },
        {
-        src: '/images/gallery/Florida 2025/photo3.jpg',
+        src: '/images/gallery/Florida 2025/Photo3.jpg',
         caption: 'Everglades National Park',
         alt: 'Park Welcome Center'
       },
        {
-        src: '/images/gallery/Florida 2025/photo4.jpg',
+        src: '/images/gallery/Florida 2025/Photo4.jpg',
         caption: 'Everglades National Park',
         alt: 'Park Entrance'
       },
        {
-        src: '/images/gallery/Florida 2025/photo5.jpg',
+        src: '/images/gallery/Florida 2025/Photo5.jpg',
         caption: 'Naples Beach',
         alt: 'Beautiful Sunset'
       },
        {
-        src: '/images/gallery/Florida 2025/photo6.jpg',
+        src: '/images/gallery/Florida 2025/Photo6.jpg',
         caption: 'Naples Trial',
         alt: 'Lakeside walk'
       },
