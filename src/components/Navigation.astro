@@ -1,6 +1,5 @@
 ---
-// Professional responsive navigation component
-// Desktop: Inline links | Mobile: Hamburger menu
+// Responsive Navigation - Fixed and Working
 ---
 
 <header class="site-header">
@@ -23,8 +22,7 @@
             <button 
                 id="mobile-menu-toggle" 
                 class="mobile-menu-toggle" 
-                aria-label="Toggle navigation menu"
-                aria-expanded="false"
+                aria-label="Toggle menu"
             >
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -32,24 +30,21 @@
             </button>
         </div>
     </nav>
-    
-    {/* Mobile Menu Overlay */}
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
-        <nav class="mobile-nav">
-            <a href="/poems" class="mobile-nav-link">Poems</a>
-            <a href="/stories" class="mobile-nav-link">Stories</a>
-            <a href="/gallery" class="mobile-nav-link">Gallery</a>
-            <a href="/about" class="mobile-nav-link">About</a>
-            <a href="/contact" class="mobile-nav-link">Contact</a>
-        </nav>
-    </div>
 </header>
 
+{/* Mobile Menu Overlay - Outside header for proper stacking */}
+<div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav">
+        <a href="/poems" class="mobile-nav-link">Poems</a>
+        <a href="/stories" class="mobile-nav-link">Stories</a>
+        <a href="/gallery" class="mobile-nav-link">Gallery</a>
+        <a href="/about" class="mobile-nav-link">About</a>
+        <a href="/contact" class="mobile-nav-link">Contact</a>
+    </nav>
+</div>
+
 <style>
-    /* ========================================
-       HEADER & CONTAINER
-       ======================================== */
-    
+    /* Header */
     .site-header {
         position: fixed;
         top: 0;
@@ -76,22 +71,14 @@
     
     .site-logo {
         font-family: var(--serif);
-        font-size: 1.25rem;
+        font-size: 1.125rem;
         font-weight: 300;
         letter-spacing: 0.15em;
         color: var(--text-primary);
         text-decoration: none;
-        transition: opacity 0.2s;
     }
     
-    .site-logo:hover {
-        opacity: 0.7;
-    }
-    
-    /* ========================================
-       DESKTOP NAVIGATION
-       ======================================== */
-    
+    /* Desktop Nav */
     .desktop-nav {
         display: none;
         gap: 2rem;
@@ -103,55 +90,36 @@
         color: var(--text-secondary);
         text-decoration: none;
         transition: color 0.2s;
-        white-space: nowrap;
     }
     
     .nav-link:hover {
         color: var(--text-primary);
     }
     
-    @media (min-width: 768px) {
-        .site-logo {
-            font-size: 1.5rem;
-        }
-        
-        .nav-container {
-            height: 5rem;
-        }
-        
-        .desktop-nav {
-            display: flex;
-        }
-    }
-    
-    /* ========================================
-       MOBILE HAMBURGER BUTTON
-       ======================================== */
-    
+    /* Mobile Hamburger */
     .mobile-menu-toggle {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        width: 2rem;
-        height: 2rem;
+        justify-content: space-between;
+        width: 1.5rem;
+        height: 1.125rem;
         background: transparent;
         border: none;
         cursor: pointer;
         padding: 0;
-        z-index: 1001;
+        z-index: 1002;
     }
     
     .hamburger-line {
-        width: 2rem;
+        width: 100%;
         height: 2px;
         background: var(--text-primary);
         transition: all 0.3s ease;
-        transform-origin: center;
     }
     
-    /* Hamburger animation when open */
+    /* X animation when open */
     .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
+        transform: translateY(7px) rotate(45deg);
     }
     
     .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
@@ -159,34 +127,28 @@
     }
     
     .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
+        transform: translateY(-7px) rotate(-45deg);
     }
     
-    @media (min-width: 768px) {
-        .mobile-menu-toggle {
-            display: none;
-        }
-    }
-    
-    /* ========================================
-       MOBILE MENU OVERLAY
-       ======================================== */
-    
-    .mobile-menu-overlay {
+    /* Mobile Menu */
+    .mobile-menu {
         position: fixed;
         top: 4rem;
         left: 0;
         right: 0;
         bottom: 0;
         background: #0f1419;
-        transform: translateX(100%);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s 0.3s, opacity 0.3s ease;
         z-index: 999;
         overflow-y: auto;
     }
     
-    .mobile-menu-overlay.active {
-        transform: translateX(0);
+    .mobile-menu.active {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0s, opacity 0.3s ease;
     }
     
     .mobile-nav {
@@ -197,12 +159,12 @@
     
     .mobile-nav-link {
         font-family: var(--serif);
-        font-size: 2rem;
+        font-size: 1.875rem;
         font-weight: 300;
-        color: var(--text-primary);
+        color: #e5e5e5;
         text-decoration: none;
-        padding: 1.5rem 0;
-        border-bottom: 1px solid var(--border-subtle);
+        padding: 1.25rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         transition: color 0.2s;
     }
     
@@ -210,63 +172,70 @@
         border-bottom: none;
     }
     
-    .mobile-nav-link:hover,
     .mobile-nav-link:active {
-        color: var(--accent-blue);
+        color: #5ea3f5;
     }
     
+    /* Desktop styles */
     @media (min-width: 768px) {
-        .mobile-menu-overlay {
+        .site-logo {
+            font-size: 1.25rem;
+        }
+        
+        .nav-container {
+            height: 5rem;
+        }
+        
+        .desktop-nav {
+            display: flex;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+        }
+        
+        .mobile-menu {
             display: none;
         }
     }
     
-    @media (max-width: 767px) {
-        body.menu-open {
-            overflow: hidden;
-        }
+    /* Prevent body scroll when menu open */
+    body.menu-open {
+        overflow: hidden;
     }
 </style>
 
 <script>
-    // Mobile menu toggle functionality
-    const toggleButton = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu-overlay');
-    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const links = document.querySelectorAll('.mobile-nav-link');
     
-    // Toggle menu
-    function toggleMenu() {
-        const isActive = toggleButton?.classList.toggle('active');
-        mobileMenu?.classList.toggle('active');
-        toggleButton?.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-        
-        // Prevent body scroll when menu is open
-        if (isActive) {
-            document.body.classList.add('menu-open');
-        } else {
-            document.body.classList.remove('menu-open');
-        }
+    function openMenu() {
+        toggle?.classList.add('active');
+        menu?.classList.add('active');
+        document.body.classList.add('menu-open');
     }
     
-    // Close menu
     function closeMenu() {
-        toggleButton?.classList.remove('active');
-        mobileMenu?.classList.remove('active');
-        toggleButton?.setAttribute('aria-expanded', 'false');
+        toggle?.classList.remove('active');
+        menu?.classList.remove('active');
         document.body.classList.remove('menu-open');
     }
     
-    // Event listeners
-    toggleButton?.addEventListener('click', toggleMenu);
+    toggle?.addEventListener('click', () => {
+        if (toggle.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
     
-    // Close menu when clicking a link
-    mobileLinks.forEach(link => {
+    links.forEach(link => {
         link.addEventListener('click', closeMenu);
     });
     
-    // Close menu when pressing Escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
+        if (e.key === 'Escape' && menu?.classList.contains('active')) {
             closeMenu();
         }
     });
