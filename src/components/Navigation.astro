@@ -1,15 +1,15 @@
 ---
-/* Responsive navigation with improved mobile UI */
+// Responsive navigation with hamburger menu for mobile
 ---
 
-<header class="nav-header fixed top-0 left-0 right-0 z-50">
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div class="flex justify-between items-center h-16 sm:h-20">
             <a href="/" class="text-lg sm:text-xl font-light tracking-widest logo">
                 INAAYAT
             </a>
-
-            <!-- Desktop Navigation -->
+            
+            {/* Desktop Navigation */}
             <div class="desktop-nav">
                 <a href="/poems" class="nav-link">Poems</a>
                 <a href="/stories" class="nav-link">Stories</a>
@@ -17,8 +17,8 @@
                 <a href="/about" class="nav-link">About</a>
                 <a href="/contact" class="nav-link">Contact</a>
             </div>
-
-            <!-- Mobile Hamburger -->
+            
+            {/* Mobile Hamburger */}
             <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu">
                 <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 12h18M3 6h18M3 18h18"/>
@@ -29,8 +29,8 @@
             </button>
         </div>
     </nav>
-
-    <!-- Mobile Menu Overlay -->
+    
+    {/* Mobile Menu Overlay */}
     <div id="mobile-menu" class="mobile-menu">
         <div class="mobile-menu-content">
             <a href="/poems" class="mobile-nav-link">Poems</a>
@@ -43,20 +43,17 @@
 </header>
 
 <style>
-    /* Header */
     .nav-header {
-        background: rgba(15, 20, 25, 0.92); /* darker, cleaner */
-        backdrop-filter: blur(12px);        /* stronger blur */
+        background: rgba(15, 20, 25, 0.8);
         border-bottom: 1px solid var(--border-subtle);
-        box-shadow: 0 2px 12px rgba(0,0,0,0.25);
     }
-
+    
     .logo {
         font-family: var(--serif);
         color: var(--text-primary);
         text-decoration: none;
     }
-
+    
     /* Desktop Navigation */
     .desktop-nav {
         display: flex;
@@ -64,91 +61,95 @@
         font-size: 0.875rem;
         font-weight: 300;
     }
-
+    
     .nav-link {
         color: var(--text-secondary);
         text-decoration: none;
         transition: color 0.2s;
     }
-
+    
     .nav-link:hover {
         color: var(--text-primary);
     }
-
+    
     /* Mobile Menu Button */
     .mobile-menu-button {
         display: none;
         background: none;
         border: none;
-        color: var(--text-primary); /* improved contrast */
+        color: var(--text-secondary);
         cursor: pointer;
         padding: 0.5rem;
     }
-
+    
     .close-icon {
         display: none;
     }
-
+    
     .mobile-menu-button.active .hamburger-icon {
         display: none;
     }
-
+    
     .mobile-menu-button.active .close-icon {
         display: block;
     }
-
+    
     /* Mobile Menu Overlay */
     .mobile-menu {
         position: fixed;
-        top: 0; /* full screen */
+        top: 4rem;
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(15, 20, 25, 0.96);
-        backdrop-filter: blur(10px);
+        background: var(--bg-primary);
         transform: translateX(100%);
         transition: transform 0.3s ease;
         z-index: 40;
+        overflow-y: auto;
     }
-
+    
     .mobile-menu.active {
         transform: translateX(0);
     }
-
+    
     .mobile-menu-content {
         display: flex;
         flex-direction: column;
-        padding: 2rem;
-        gap: 1rem;
+        padding: 3rem 2rem;
+        gap: 0;
+        min-height: 100%;
     }
-
+    
     .mobile-nav-link {
         font-family: var(--serif);
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: 300;
         color: var(--text-primary);
         text-decoration: none;
-        padding: 1rem;
+        padding: 1.5rem 0;
         border-bottom: 1px solid var(--border-subtle);
         transition: all 0.2s;
     }
-
+    
     .mobile-nav-link:hover {
         color: var(--accent-blue);
-        padding-left: 1.5rem;
     }
-
+    
+    .mobile-nav-link:active {
+        color: var(--accent-blue);
+    }
+    
     /* Responsive Breakpoint */
     @media (max-width: 768px) {
         .desktop-nav {
             display: none;
         }
-
+        
         .mobile-menu-button {
             display: block;
         }
     }
-
+    
     @media (min-width: 769px) {
         .mobile-menu {
             display: none;
@@ -159,12 +160,12 @@
 <script>
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-
+    
     menuButton?.addEventListener('click', () => {
         menuButton.classList.toggle('active');
         mobileMenu?.classList.toggle('active');
     });
-
+    
     // Close menu when clicking a link
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
     mobileLinks.forEach(link => {
@@ -173,14 +174,23 @@
             mobileMenu?.classList.remove('active');
         });
     });
-
+    
     // Close menu when clicking outside
    document.addEventListener('click', (e) => {
-        const target = e.target as Node;
-        if (!menuButton?.contains(target) && !mobileMenu?.contains(target)) {
-            menuButton?.classList.remove('active');
-            mobileMenu?.classList.remove('active');
-        }
-    });
-
+    const target = e.target as Node;
+    if (!menuButton?.contains(target) && !mobileMenu?.contains(target)) {
+        menuButton?.classList.remove('active');
+        mobileMenu?.classList.remove('active');
+    }
+});
 </script>
+
+<!-- 
+HOW TO USE:
+Replace your current <header> section with this entire Navigation component.
+Works on all screen sizes:
+- Desktop (>768px): Shows all links in header
+- Mobile (≤768px): Shows hamburger menu
+
+No other changes needed!
+-->
