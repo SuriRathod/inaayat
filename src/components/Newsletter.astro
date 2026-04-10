@@ -1,6 +1,5 @@
 ---
-// Newsletter Component with Toast Confirmation
-// User stays on site - no popups, no redirects
+
 ---
 
 <div class="newsletter-section">
@@ -14,269 +13,142 @@
             <input 
                 type="email" 
                 id="newsletter-email"
-                name="email"
                 placeholder="your@email.com"
                 required
                 class="newsletter-input"
             />
-            <button type="submit" class="newsletter-button" id="newsletter-submit">
-                <span class="button-text">Subscribe</span>
-                <span class="button-loading">Subscribing...</span>
+            <button type="submit" id="newsletter-button" class="newsletter-button">
+                Subscribe
             </button>
         </form>
+
+        <div id="newsletter-toast" class="newsletter-toast">
+            Opening subscription…
+        </div>
         
         <p class="newsletter-note">
             Unsubscribe anytime. We respect your privacy.
         </p>
-        
-        <!-- Toast Notification -->
-        <div id="newsletter-toast" class="newsletter-toast">
-            <div class="toast-content">
-                <svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="toast-message">Subscribed! Check your email to confirm.</span>
-            </div>
-        </div>
     </div>
 </div>
 
 <style>
-    .newsletter-section {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-subtle);
-        padding: 3rem 2rem;
-        margin: 3rem 0;
-        text-align: center;
-    }
-    
-    .newsletter-container {
-        max-width: 28rem;
-        margin: 0 auto;
-        position: relative;
-    }
-    
-    .newsletter-title {
-        font-family: var(--serif);
-        font-size: 1.875rem;
-        font-weight: 300;
-        color: var(--text-primary);
-        margin-bottom: 0.75rem;
-    }
-    
-    .newsletter-description {
-        color: var(--text-secondary);
-        font-size: 1rem;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-    }
-    
+.newsletter-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    padding: 3rem 2rem;
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.newsletter-container {
+    max-width: 28rem;
+    margin: 0 auto;
+}
+
+.newsletter-title {
+    font-family: var(--serif);
+    font-size: 1.875rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.newsletter-description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter-input {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    caret-color: var(--text-primary);
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    font-family: var(--sans);
+}
+
+.newsletter-button {
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.newsletter-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.newsletter-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 640px) {
     .newsletter-form {
-        display: flex;
-        gap: 0.75rem;
-        margin-bottom: 1rem;
+        flex-direction: column;
     }
-    
-    .newsletter-input {
-        flex: 1;
-        background: var(--bg-primary);
-        border: 1px solid var(--border-subtle);
-        color: var(--text-primary);
-        padding: 0.875rem 1rem;
-        font-size: 0.875rem;
-        transition: border-color 0.2s;
-        font-family: var(--sans);
-    }
-    
-    .newsletter-input:focus {
-        outline: none;
-        border-color: var(--accent-blue);
-    }
-    
-    .newsletter-input::placeholder {
-        color: var(--text-muted);
-    }
-    
-    .newsletter-button {
-        background: var(--accent-blue);
-        color: white;
-        border: none;
-        padding: 0.875rem 1.5rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.2s;
-        white-space: nowrap;
-        position: relative;
-    }
-    
-    .newsletter-button:hover {
-        background: #4184e4;
-    }
-    
-    .newsletter-button:disabled {
-        background: #4a5568;
-        cursor: not-allowed;
-    }
-    
-    .button-loading {
-        display: none;
-    }
-    
-    .newsletter-button.loading .button-text {
-        display: none;
-    }
-    
-    .newsletter-button.loading .button-loading {
-        display: inline;
-    }
-    
-    .newsletter-note {
-        color: var(--text-muted);
-        font-size: 0.75rem;
-        margin-top: 1rem;
-    }
-    
-    /* Toast Notification */
-    .newsletter-toast {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%) translateY(150%);
-        background: #10b981;
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        z-index: 9999;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .newsletter-toast.show {
-        transform: translateX(-50%) translateY(0);
-    }
-    
-    .toast-content {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-    
-    .toast-icon {
-        flex-shrink: 0;
-    }
-    
-    .toast-message {
-        font-size: 0.875rem;
-        font-weight: 500;
-    }
-    
-    /* Error state */
-    .newsletter-toast.error {
-        background: #ef4444;
-    }
-    
-    @media (max-width: 640px) {
-        .newsletter-section {
-            padding: 2rem 1rem;
-        }
-        
-        .newsletter-form {
-            flex-direction: column;
-        }
-        
-        .newsletter-button {
-            width: 100%;
-        }
-        
-        .newsletter-toast {
-            left: 1rem;
-            right: 1rem;
-            transform: translateX(0) translateY(150%);
-        }
-        
-        .newsletter-toast.show {
-            transform: translateX(0) translateY(0);
-        }
-    }
+}
 </style>
 
-<script>
-    // @ts-nocheck
-    const form = document.getElementById('newsletter-form');
-    const emailInput = document.getElementById('newsletter-email');
-    const submitButton = document.getElementById('newsletter-submit');
-    const toast = document.getElementById('newsletter-toast');
-    
-    function showToast(message, isError = false) {
-        if (!toast) return;
-        
-        const toastMessage = toast.querySelector('.toast-message');
-        if (!toastMessage) return;
-        
-        toastMessage.textContent = message;
-        
-        if (isError) {
-            toast.classList.add('error');
-        } else {
-            toast.classList.remove('error');
-        }
-        
-        toast.classList.add('show');
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 5000);
-    }
-    
-    form?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        if (!emailInput) return;
-        
-        const email = emailInput.value.trim();
-        
-        if (!email || !email.includes('@')) {
-            showToast('Please enter a valid email address', true);
-            return;
-        }
-        
-        // Show loading state
-        submitButton?.classList.add('loading');
-        submitButton?.setAttribute('disabled', 'true');
-        
-        try {
-            // Call Cloudflare Worker
-            const response = await fetch('https://newsletter.rathoresurendra80.workers.dev/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                showToast('Subscribed! Check your email to confirm.', false);
-                emailInput.value = '';
-            } else {
-                showToast(data.error || 'Something went wrong. Please try again.', true);
-            }
-            
-        } catch (error) {
-            showToast('Network error. Please try again.', true);
-        } finally {
-            // Remove loading state
-            submitButton?.classList.remove('loading');
-            submitButton?.removeAttribute('disabled');
-        }
-    });
-</script>
+<script is:raw>
+const form = document.getElementById("newsletter-form");
+const emailInput = document.getElementById("newsletter-email");
+const toast = document.getElementById("newsletter-toast");
+const button = document.getElementById("newsletter-button");
 
-<!-- 
-SETUP REQUIRED:
-1. Deploy the Cloudflare Worker (see cloudflare-worker.js)
-2. Update line 98 with your Worker URL
-3. That's it!
--->
+if (form) {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        if (!email) return;
+
+        // Open Substack subscribe page with prefilled email
+        const url = `https://surirathod.substack.com/subscribe?email=${encodeURIComponent(email)}`;
+
+        const width = 600;
+        const height = 700;
+        const left = (window.innerWidth - width) / 2;
+        const top = (window.innerHeight - height) / 2;
+
+        window.open(
+            url,
+            "substack-popup",
+            `scrollbars=yes,width=${width},height=${height},top=${top},left=${left}`
+        );
+
+        // UI feedback
+        button.textContent = "Opening...";
+        toast.classList.add("show");
+
+        setTimeout(() => {
+            button.textContent = "Subscribe";
+            toast.classList.remove("show");
+            emailInput.value = "";
+        }, 3000);
+    });
+}
+</script>
