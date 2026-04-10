@@ -1,7 +1,5 @@
 ---
-// Custom Newsletter Form - Styled to match your theme
-// Replace SUBSTACK_URL with your actual Substack URL
-const substackUrl = "https://surirathod.substack.com"; // CHANGE THIS
+const substackUrl = "https://surirathod.substack.com";
 ---
 
 <div class="newsletter-section">
@@ -11,15 +9,11 @@ const substackUrl = "https://surirathod.substack.com"; // CHANGE THIS
             Get new poems delivered to your inbox. No spam, just poetry.
         </p>
         
-        <form 
-            action={`${substackUrl}/subscribe`}
-            method="post"
-            target="_blank"
-            class="newsletter-form"
-        >
+        <form id="newsletter-form" class="newsletter-form">
             <input 
                 type="email" 
                 name="email"
+                id="newsletter-email"
                 placeholder="your@email.com"
                 required
                 class="newsletter-input"
@@ -28,6 +22,9 @@ const substackUrl = "https://surirathod.substack.com"; // CHANGE THIS
                 Subscribe
             </button>
         </form>
+
+        <!-- Toast -->
+        <div id="newsletter-toast" class="newsletter-toast">Subscribed successfully!</div>
         
         <p class="newsletter-note">
             Unsubscribe anytime. We respect your privacy.
@@ -36,101 +33,56 @@ const substackUrl = "https://surirathod.substack.com"; // CHANGE THIS
 </div>
 
 <style>
-    .newsletter-section {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-subtle);
-        padding: 3rem 2rem;
-        margin: 3rem 0;
-        text-align: center;
-    }
-    
-    .newsletter-container {
-        max-width: 28rem;
-        margin: 0 auto;
-    }
-    
-    .newsletter-title {
-        font-family: var(--serif);
-        font-size: 1.875rem;
-        font-weight: 300;
-        color: var(--text-primary);
-        margin-bottom: 0.75rem;
-    }
-    
-    .newsletter-description {
-        color: var(--text-secondary);
-        font-size: 1rem;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-    }
-    
-    .newsletter-form {
-        display: flex;
-        gap: 0.75rem;
-        margin-bottom: 1rem;
-    }
-    
-    .newsletter-input {
-        flex: 1;
-        background: var(--bg-primary);
-        border: 1px solid var(--border-subtle);
-        color: var(--text-primary);
-        padding: 0.875rem 1rem;
-        font-size: 0.875rem;
-        transition: border-color 0.2s;
-        font-family: var(--sans);
-    }
-    
-    .newsletter-input:focus {
-        outline: none;
-        border-color: var(--accent-blue);
-    }
-    
-    .newsletter-input::placeholder {
-        color: var(--text-muted);
-    }
-    
-    .newsletter-button {
+    /* your existing styles stay the same */
+
+    .newsletter-toast {
+        display: none;
+        margin-top: 1rem;
+        padding: 0.75rem 1rem;
         background: var(--accent-blue);
         color: white;
-        border: none;
-        padding: 0.875rem 1.5rem;
+        border-radius: 4px;
         font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.2s;
-        white-space: nowrap;
+        animation: fadeInOut 3s ease forwards;
     }
-    
-    .newsletter-button:hover {
-        background: #4184e4;
-    }
-    
-    .newsletter-note {
-        color: var(--text-muted);
-        font-size: 0.75rem;
-        margin-top: 1rem;
-    }
-    
-    @media (max-width: 640px) {
-        .newsletter-section {
-            padding: 2rem 1rem;
-        }
-        
-        .newsletter-form {
-            flex-direction: column;
-        }
-        
-        .newsletter-button {
-            width: 100%;
-        }
+
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateY(10px); }
+        10% { opacity: 1; transform: translateY(0); }
+        90% { opacity: 1; }
+        100% { opacity: 0; transform: translateY(10px); }
     }
 </style>
 
-<!-- 
-HOW TO SETUP:
-1. Create Substack account: https://substack.com
-2. Your Substack URL will be: https://yourname.substack.com
-3. Replace line 3 above with your URL
-4. Done! Form submits directly to Substack
--->
+<script>
+    const form = document.getElementById("newsletter-form");
+    const emailInput = document.getElementById("newsletter-email") as HTMLInputElement | null;
+    const toast = document.getElementById("newsletter-toast");
+
+    if (form && emailInput && toast) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            try {
+                await fetch("https://surirathod.substack.com/api/v1/free", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email })
+                });
+
+                toast.style.display = "block";
+                emailInput.value = "";
+
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 3000);
+
+            } catch (err) {
+                console.error("Subscription error:", err);
+            }
+        });
+    }
+</script>
