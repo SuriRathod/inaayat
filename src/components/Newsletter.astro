@@ -1,5 +1,5 @@
 ---
-const substackUrl = "https://surirathod.substack.com";
+
 ---
 
 <div class="newsletter-section">
@@ -9,7 +9,13 @@ const substackUrl = "https://surirathod.substack.com";
             Get new poems delivered to your inbox. No spam, just poetry.
         </p>
         
-        <form id="newsletter-form" class="newsletter-form">
+        <form 
+            action="https://surirathod.substack.com/api/v1/free" 
+            method="post"
+            target="hidden-iframe"
+            id="newsletter-form"
+            class="newsletter-form"
+        >
             <input 
                 type="email" 
                 name="email"
@@ -18,14 +24,15 @@ const substackUrl = "https://surirathod.substack.com";
                 required
                 class="newsletter-input"
             />
-            <button type="submit" class="newsletter-button">
+            <button type="submit" id="newsletter-button" class="newsletter-button">
                 Subscribe
             </button>
         </form>
 
-        <!-- Toast (hidden by default) -->
+        <iframe name="hidden-iframe" style="display:none;"></iframe>
+
         <div id="newsletter-toast" class="newsletter-toast">
-            You’re subscribed — check your inbox!
+            <span class="toast-text">You’re subscribed — check your inbox ✉️</span>
         </div>
         
         <p class="newsletter-note">
@@ -35,7 +42,6 @@ const substackUrl = "https://surirathod.substack.com";
 </div>
 
 <style>
-    /* YOUR ORIGINAL DESIGN — UNCHANGED */
     .newsletter-section {
         background: var(--bg-secondary);
         border: 1px solid var(--border-subtle);
@@ -77,19 +83,14 @@ const substackUrl = "https://surirathod.substack.com";
         color: var(--text-primary);
         padding: 0.875rem 1rem;
         font-size: 0.875rem;
-        transition: border-color 0.2s;
+        transition: border-color 0.2s, box-shadow 0.2s;
         font-family: var(--sans);
     }
 
-    /* Fix invisible typing */
-    .newsletter-input:focus,
-    .newsletter-input {
-        color: var(--text-primary) !important;
-    }
-    
     .newsletter-input:focus {
         outline: none;
         border-color: var(--accent-blue);
+        box-shadow: 0 0 0 1px var(--accent-blue);
     }
     
     .newsletter-input::placeholder {
@@ -104,12 +105,18 @@ const substackUrl = "https://surirathod.substack.com";
         font-size: 0.875rem;
         font-weight: 500;
         cursor: pointer;
-        transition: background 0.2s;
+        transition: all 0.2s ease;
         white-space: nowrap;
     }
     
     .newsletter-button:hover {
         background: #4184e4;
+        transform: translateY(-1px);
+    }
+
+    .newsletter-button.loading {
+        opacity: 0.7;
+        cursor: not-allowed;
     }
     
     .newsletter-note {
@@ -118,23 +125,31 @@ const substackUrl = "https://surirathod.substack.com";
         margin-top: 1rem;
     }
 
-    /* Toast styling — matches your theme */
+    /* ✨ Toast (polished, subtle, poetic) */
     .newsletter-toast {
-        display: none;
-        margin-top: 1rem;
-        padding: 0.75rem 1rem;
-        background: var(--accent-blue);
-        color: white;
-        border-radius: 4px;
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-subtle);
+        padding: 0.75rem 1.25rem;
         font-size: 0.875rem;
-        animation: fadeInOut 3s ease forwards;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(6px);
     }
 
-    @keyframes fadeInOut {
-        0% { opacity: 0; transform: translateY(10px); }
-        10% { opacity: 1; transform: translateY(0); }
-        90% { opacity: 1; }
-        100% { opacity: 0; transform: translateY(10px); }
+    .newsletter-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .toast-text {
+        font-family: var(--sans);
+        letter-spacing: 0.2px;
     }
 
     @media (max-width: 640px) {
@@ -152,35 +167,36 @@ const substackUrl = "https://surirathod.substack.com";
     }
 </style>
 
-<script>
+<script is:raw>
+window.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("newsletter-form");
-    const emailInput = document.getElementById("newsletter-email") as HTMLInputElement | null;
+    const emailInput = document.getElementById("newsletter-email");
     const toast = document.getElementById("newsletter-toast");
+    const button = document.getElementById("newsletter-button");
 
-    if (form && emailInput && toast) {
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+    if (form && emailInput && toast && button) {
+        form.addEventListener("submit", () => {
+            // Loading state
+            button.classList.add("loading");
+            button.textContent = "Subscribing...";
 
-            const email = emailInput.value.trim();
-            if (!email) return;
+            // Show toast after slight delay (feels more natural)
+            setTimeout(() => {
+                toast.classList.add("show");
+            }, 400);
 
-            try {
-                await fetch("https://surirathod.substack.com/api/v1/free", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email })
-                });
-
-                toast.style.display = "block";
+            // Reset form + button
+            setTimeout(() => {
                 emailInput.value = "";
+                button.classList.remove("loading");
+                button.textContent = "Subscribe";
+            }, 1200);
 
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-
-            } catch (err) {
-                console.error("Subscription error:", err);
-            }
+            // Hide toast
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3500);
         });
     }
+});
 </script>
