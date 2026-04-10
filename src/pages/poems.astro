@@ -4,6 +4,7 @@ import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 import Newsletter from '../components/Newsletter.astro';
+import Navigation from '../components/Navigation.astro';
 
 const allPoems = await getCollection('poems');
 const sortedPoems = allPoems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -64,23 +65,7 @@ const hasMore = totalPoems > poemsPerPage;
 </head>
 <body class="antialiased">
     
-    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
-                    INAAYAT
-                </a>
-                <div class="flex gap-4 sm:gap-8 text-xs sm:text-sm font-light">
-                    
-                    <a href="/poems" class="transition-colors" style="color: var(--text-primary);">Poems</a>
-                    <a href="/stories" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Stories</a>
-                    <a href="/gallery" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Gallery</a>
-                    <a href="/about" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">About</a>
-                    <a href="/contact" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Contact</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <Navigation />
 
     <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-12">
         <div class="max-w-7xl mx-auto">

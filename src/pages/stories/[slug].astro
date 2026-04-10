@@ -4,6 +4,8 @@ import '../../styles/global.css';
 import SEO from '../../components/SEO.astro';
 import ScrollToTop from '../../components/ScrollToTop.astro';
 import Newsletter from '../../components/Newsletter.astro';
+import Navigation from '../../components/Navigation.astro';
+
 
 export async function getStaticPaths() {
   const stories = await getCollection('stories');
@@ -64,23 +66,8 @@ const { Content } = await story.render();
 </head>
 <body class="antialiased min-h-screen">
     
-    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md nav-header">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href="/" class="text-lg sm:text-xl font-light tracking-widest" style="font-family: var(--serif); color: var(--text-primary);">
-                    INAAYAT
-                </a>
-                <a href="/stories" class="text-xs sm:text-sm transition-colors inline-flex items-center gap-2" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
-                    </svg>
-                    All Stories
-                </a>
-                <a href="/contact" class="transition-colors" style="color: var(--text-secondary);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">Contact</a>
-            </div>
-        </nav>
-    </header>
-
+    <Navigation />
+    
     <article class="pt-32 pb-24">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12">
             
