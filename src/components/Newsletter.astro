@@ -24,6 +24,15 @@
             </button>
         </form>
         
+        <!-- Helpful note about the redirect -->
+        <div class="newsletter-redirect-note">
+            <p class="redirect-note-text">
+                <strong>Quick heads-up:</strong> Clicking Subscribe will take you to Substack to confirm. 
+                After subscribing, use your browser's back button to return here. It's a small detour 
+                for a small, growing newsletter — thank you for bearing with me! 💙
+            </p>
+        </div>
+        
         <p class="newsletter-note">
             Unsubscribe anytime. We respect your privacy.
         </p>
@@ -107,6 +116,26 @@
         margin-top: 1rem;
     }
     
+    .newsletter-redirect-note {
+        background: rgba(94, 163, 245, 0.1);
+        border-left: 3px solid var(--accent-blue);
+        border-radius: 4px;
+        padding: 1rem;
+        margin: 1.5rem 0 0.5rem 0;
+        text-align: left;
+    }
+    
+    .redirect-note-text {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+    
+    .redirect-note-text strong {
+        color: var(--text-primary);
+    }
+    
     @media (max-width: 640px) {
         .newsletter-section {
             padding: 2rem 1rem;
@@ -152,3 +181,18 @@
         // then can click "Continue reading" to return to your site
     });
 </script>
+
+<!-- 
+SETUP:
+1. Change "surirathod.substack.com" to YOUR Substack (line 121)
+2. That's it!
+
+HOW IT WORKS:
+- User enters email
+- Clicks Subscribe  
+- Redirects to Substack with email pre-filled
+- User confirms subscription
+- User clicks "Continue reading" to return to your site
+
+This is the cleanest solution that ACTUALLY WORKS with Substack's restrictions.
+-->

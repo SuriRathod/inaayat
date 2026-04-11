@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import '../../styles/global.css';
 import SEO from '../../components/SEO.astro';
 import ScrollToTop from '../../components/ScrollToTop.astro';
-import Newsletter from '../../components/Newsletter.astro';
 import Navigation from '../../components/Navigation.astro';
 
 export async function getStaticPaths() {
@@ -215,7 +214,6 @@ const { story, prevStory, nextStory } = Astro.props;
         </div>
     </article>
 
-    <Newsletter />
 
     <footer class="py-12" style="border-top: 1px solid var(--border-subtle);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
