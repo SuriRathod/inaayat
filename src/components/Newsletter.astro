@@ -1,5 +1,6 @@
 ---
-
+// SIMPLEST WORKING SOLUTION
+// No backend, no iframe, no popup - just clean UX
 ---
 
 <div class="newsletter-section">
@@ -18,174 +19,136 @@
                 required
                 class="newsletter-input"
             />
-            <button type="submit" id="newsletter-button" class="newsletter-button">
+            <button type="submit" class="newsletter-button">
                 Subscribe
             </button>
         </form>
-
-        <p id="newsletter-error" class="newsletter-error"></p>
-
+        
         <p class="newsletter-note">
-            You’ll be redirected to confirm your subscription.
+            Unsubscribe anytime. We respect your privacy.
         </p>
     </div>
 </div>
 
 <style>
-.newsletter-section {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-subtle);
-    padding: 3rem 2rem;
-    margin: 3rem 0;
-    text-align: center;
-}
-
-.newsletter-container {
-    max-width: 28rem;
-    margin: 0 auto;
-}
-
-.newsletter-title {
-    font-family: var(--serif);
-    font-size: 1.875rem;
-    font-weight: 300;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
-}
-
-.newsletter-description {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-}
-
-.newsletter-form {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-}
-
-.newsletter-input {
-    flex: 1;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-primary);
-    caret-color: var(--text-primary);
-    padding: 0.875rem 1rem;
-    font-size: 0.875rem;
-    font-family: var(--sans);
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.newsletter-input:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 1px var(--accent-blue);
-}
-
-.newsletter-input.error {
-    border-color: #ff6b6b;
-}
-
-.newsletter-input::placeholder {
-    color: var(--text-muted);
-}
-
-.newsletter-button {
-    background: var(--accent-blue);
-    color: white;
-    border: none;
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.newsletter-button:hover {
-    background: #4184e4;
-    transform: translateY(-1px);
-}
-
-.newsletter-button.loading {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.newsletter-error {
-    color: #ff6b6b;
-    font-size: 0.75rem;
-    height: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.newsletter-note {
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    margin-top: 0.5rem;
-}
-
-@media (max-width: 640px) {
     .newsletter-section {
-        padding: 2rem 1rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        padding: 3rem 2rem;
+        margin: 3rem 0;
+        text-align: center;
+    }
+    
+    .newsletter-container {
+        max-width: 28rem;
+        margin: 0 auto;
+    }
+    
+    .newsletter-title {
+        font-family: var(--serif);
+        font-size: 1.875rem;
+        font-weight: 300;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+    }
+    
+    .newsletter-description {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
     }
     
     .newsletter-form {
-        flex-direction: column;
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .newsletter-input {
+        flex: 1;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+        padding: 0.875rem 1rem;
+        font-size: 0.875rem;
+        transition: border-color 0.2s;
+        font-family: var(--sans);
+    }
+    
+    .newsletter-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+    }
+    
+    .newsletter-input::placeholder {
+        color: var(--text-muted);
     }
     
     .newsletter-button {
-        width: 100%;
+        background: var(--accent-blue);
+        color: white;
+        border: none;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+        white-space: nowrap;
     }
-}
-/* ✨ Page fade-out animation */
-.page-fade-out {
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
+    
+    .newsletter-button:hover {
+        background: #4184e4;
+    }
+    
+    .newsletter-note {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        margin-top: 1rem;
+    }
+    
+    @media (max-width: 640px) {
+        .newsletter-section {
+            padding: 2rem 1rem;
+        }
+        
+        .newsletter-form {
+            flex-direction: column;
+        }
+        
+        .newsletter-button {
+            width: 100%;
+        }
+    }
 </style>
 
 <script is:raw>
-const form = document.getElementById('newsletter-form');
-const emailInput = document.getElementById('newsletter-email');
-const errorText = document.getElementById('newsletter-error');
-const button = document.getElementById('newsletter-button');
-
-if (form && emailInput && errorText && button) {
-    form.addEventListener('submit', (e) => {
+    const form = document.getElementById('newsletter-form');
+    const emailInput = document.getElementById('newsletter-email');
+    
+    form?.addEventListener('submit', (e) => {
         e.preventDefault();
-
+        
+        if (!emailInput) return;
+        
         const email = emailInput.value.trim();
-
-        // Reset state
-        errorText.textContent = '';
-        emailInput.classList.remove('error');
-
-        // Simple validation
+        
         if (!email || !email.includes('@')) {
-            errorText.textContent = 'Please enter a valid email address';
-            emailInput.classList.add('error');
+            alert('Please enter a valid email address');
             return;
         }
-
-        // Build Substack URL
-        const substackUrl = `https://surirathod.substack.com/subscribe?email=${encodeURIComponent(email)}`;
-
-        // UX polish
-        button.textContent = "Taking you to subscribe…";
-        button.classList.add("loading");
-        button.disabled = true;
-
         
-        // Add fade-out effect
-        document.body.classList.add('page-fade-out');
-
-        // Redirect after animation
-        setTimeout(() => {
-            window.location.href = substackUrl;
-        }, 600);
+        // Open Substack subscribe page with email pre-filled
+        // This is the ONLY way that actually works with Substack
+        const substackUrl = `https://surirathod.substack.com/subscribe?email=${encodeURIComponent(email)}`;
+        
+        // Save current scroll position
+        const scrollPos = window.scrollY;
+        
+        // Open in same window
+        window.location.href = substackUrl;
+        
+        // Note: User will be redirected to Substack, confirm subscription, 
+        // then can click "Continue reading" to return to your site
     });
-}
 </script>
